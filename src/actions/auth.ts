@@ -26,13 +26,50 @@ export async function loginAction(
     return { error: "Enter a valid email and password." };
   }
 
+  const email = parsed.data.email.toLowerCase();
+  const password = parsed.data.password;
   const audience = String(formData.get("audience") ?? "customer");
+
+  let user;
+  try {
+    user = await prisma.user.findUnique({
+      where: { email },
+      include: { customer: true },
+    });
+  } catch {
+    return { error: "Cannot reach the database. Check DATABASE_URL on Vercel and redeploy." };
+  }
+
+  if (!user?.passwordHash || !user.isActive) {
+    return { error: "Those credentials were not accepted." };
+  }
+
+  const valid = await bcrypt.compare(password, user.passwordHash);
+  if (!valid) {
+    return { error: "Those credentials were not accepted." };
+  }
+
+  let redirectTo = "/portal/dashboard";
+  if (audience === "admin") {
+    if (!isAdminRole(user.role)) {
+      return { error: "This login is for KLS staff only." };
+    }
+    redirectTo = "/admin";
+  } else if (user.role === "TECHNICIAN") {
+    redirectTo = "/technician";
+  } else if (isAdminRole(user.role)) {
+    redirectTo = "/admin";
+  } else if (!user.customer || user.customer.status === "INACTIVE" || user.customer.status === "SUSPENDED") {
+    return { error: "This account is not active. Contact KLS if you need access." };
+  } else if (!user.customer.onboardingCompletedAt) {
+    redirectTo = "/onboarding";
+  }
 
   try {
     await signIn("credentials", {
-      email: parsed.data.email,
-      password: parsed.data.password,
-      redirect: false,
+      email,
+      password,
+      redirectTo,
     });
   } catch (error) {
     if (error instanceof AuthError) {
@@ -41,41 +78,7 @@ export async function loginAction(
     throw error;
   }
 
-  const session = await auth();
-  if (!session?.user) {
-    return { error: "Those credentials were not accepted." };
-  }
-
-  if (audience === "admin") {
-    if (!isAdminRole(session.user.role)) {
-      await signOut({ redirect: false });
-      return { error: "This login is for KLS staff only." };
-    }
-    redirect("/admin");
-  }
-
-  if (session.user.role === "TECHNICIAN") {
-    redirect("/technician");
-  }
-
-  if (session.user.role !== "CUSTOMER") {
-    redirect("/admin");
-  }
-
-  const customer = session.user.customerId
-    ? await prisma.customer.findUnique({ where: { id: session.user.customerId } })
-    : null;
-
-  if (!customer || customer.status === "INACTIVE" || customer.status === "SUSPENDED") {
-    await signOut({ redirect: false });
-    return { error: "This account is not active. Contact KLS if you need access." };
-  }
-
-  if (!customer.onboardingCompletedAt) {
-    redirect("/onboarding");
-  }
-
-  redirect("/portal/dashboard");
+  redirect(redirectTo);
 }
 
 export async function registerAction(
@@ -136,7 +139,7 @@ export async function registerAction(
     await signIn("credentials", {
       email,
       password: parsed.data.password,
-      redirect: false,
+      redirectTo: "/onboarding",
     });
   } catch (error) {
     if (error instanceof AuthError) {
