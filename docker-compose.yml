@@ -1,0 +1,15 @@
+services:
+  db:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: kls
+      POSTGRES_PASSWORD: kls
+      POSTGRES_DB: kls
+    ports:
+      - "5432:5432"
+    volumes:
+      - kls_pg:/var/lib/postgresql/data
+
+volumes:
+  kls_pg:

@@ -1,0 +1,28 @@
+import { z } from "zod";
+
+export const onboardingSchema = z.object({
+  companyName: z.string().min(2),
+  contactName: z.string().min(2),
+  email: z.string().email(),
+  phone: z.string().min(7),
+  billingAddressLine1: z.string().min(3),
+  billingAddressLine2: z.string().optional(),
+  billingCity: z.string().min(2),
+  billingState: z.string().min(2).max(2),
+  billingZipCode: z.string().min(5),
+  locationName: z.string().min(2),
+  addressLine1: z.string().min(3),
+  addressLine2: z.string().optional(),
+  city: z.string().min(2),
+  state: z.string().min(2).max(2),
+  zipCode: z.string().min(5),
+  locationContactName: z.string().min(2),
+  locationContactPhone: z.string().min(7),
+  locationContactEmail: z.string().email(),
+  waterPurveyor: z.string().min(2),
+  trapName: z.string().min(2),
+  capacityGallons: z.coerce.number().int().positive().optional(),
+  onsiteLocationDescription: z.string().min(2),
+  cleaningFrequency: z.enum(["MONTHLY", "QUARTERLY", "YEARLY", "CUSTOM"]),
+  lastCleanedAt: z.string().optional(),
+});

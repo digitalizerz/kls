@@ -1,0 +1,506 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ---------------------------------------------------------------------------
+// Auth.js / identity
+// ---------------------------------------------------------------------------
+
+enum UserRole {
+  CUSTOMER
+  ADMIN
+  SUPER_ADMIN
+  TECHNICIAN
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  emailVerified DateTime?
+  image         String?
+  passwordHash  String?
+  phone         String?
+  role          UserRole  @default(CUSTOMER)
+  isActive      Boolean   @default(true)
+  customerId    String?
+  lastLoginAt   DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  customer     Customer?     @relation(fields: [customerId], references: [id], onDelete: SetNull)
+  accounts     Account[]
+  sessions     Session[]
+  technician   Technician?
+  auditLogs    AuditLog[]    @relation("AuditActor")
+  notifications Notification[]
+  completedJobs ServiceRecord[] @relation("CompletedByUser")
+
+  @@index([customerId])
+  @@index([role])
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+// ---------------------------------------------------------------------------
+// Organization / field assets
+// ---------------------------------------------------------------------------
+
+enum CustomerStatus {
+  PENDING_ONBOARDING
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+}
+
+enum LocationStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum GreaseTrapStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum CleaningFrequency {
+  MONTHLY
+  QUARTERLY
+  YEARLY
+  CUSTOM
+}
+
+model Customer {
+  id                    String         @id @default(cuid())
+  companyName           String
+  contactName           String
+  email                 String
+  phone                 String
+  billingAddressLine1   String?
+  billingAddressLine2   String?
+  billingCity           String?
+  billingState          String?
+  billingZipCode        String?
+  status                CustomerStatus @default(PENDING_ONBOARDING)
+  onboardingCompletedAt DateTime?
+  notes                 String?        @db.Text
+  createdAt             DateTime       @default(now())
+  updatedAt             DateTime       @updatedAt
+
+  users             User[]
+  locations         Location[]
+  serviceRequests   ServiceRequest[]
+  serviceJobs       ServiceJob[]
+  documents         Document[]
+  notifications     Notification[]
+  contactInquiries  ContactInquiry[]
+
+  @@index([status])
+  @@index([companyName])
+}
+
+model Location {
+  id              String         @id @default(cuid())
+  customerId      String
+  locationName    String
+  addressLine1    String
+  addressLine2    String?
+  city            String
+  state           String
+  zipCode         String
+  contactName     String?
+  contactPhone    String?
+  contactEmail    String?
+  waterPurveyor   String?
+  notes           String?        @db.Text
+  status          LocationStatus @default(ACTIVE)
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  customer        Customer         @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  greaseTraps     GreaseTrap[]
+  serviceRequests ServiceRequest[]
+  serviceJobs     ServiceJob[]
+  documents       Document[]
+
+  @@index([customerId])
+  @@index([status])
+  @@index([city, state])
+}
+
+model GreaseTrap {
+  id                        String            @id @default(cuid())
+  locationId                String
+  nameOrIdentifier          String
+  capacityGallons           Int?
+  onsiteLocationDescription String?
+  cleaningFrequency         CleaningFrequency
+  customFrequencyDays       Int?
+  lastCleanedAt             DateTime?
+  nextRecommendedServiceAt  DateTime?
+  notes                     String?           @db.Text
+  status                    GreaseTrapStatus  @default(ACTIVE)
+  createdAt                 DateTime          @default(now())
+  updatedAt                 DateTime          @updatedAt
+
+  location          Location                 @relation(fields: [locationId], references: [id], onDelete: Cascade)
+  requestTraps      ServiceRequestGreaseTrap[]
+  jobTraps          ServiceJobGreaseTrap[]
+  documents         Document[]
+
+  @@index([locationId])
+  @@index([nextRecommendedServiceAt])
+  @@index([status])
+}
+
+model Technician {
+  id         String            @id @default(cuid())
+  userId     String            @unique
+  employeeId String?
+  status     TechnicianStatus  @default(ACTIVE)
+  notes      String?           @db.Text
+  createdAt  DateTime          @default(now())
+  updatedAt  DateTime          @updatedAt
+
+  user User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  jobs ServiceJob[]
+}
+
+enum TechnicianStatus {
+  ACTIVE
+  INACTIVE
+}
+
+// ---------------------------------------------------------------------------
+// Service workflow
+// ---------------------------------------------------------------------------
+
+enum ServiceType {
+  ROUTINE_CLEANING
+  EMERGENCY_CLEANING
+  INSPECTION
+  REPAIR_COORDINATION
+  OTHER
+}
+
+enum ServiceStatus {
+  REQUESTED
+  SCHEDULED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+model ServiceRequest {
+  id              String        @id @default(cuid())
+  customerId      String
+  locationId      String
+  serviceType     ServiceType
+  status          ServiceStatus @default(REQUESTED)
+  preferredDate   DateTime?
+  alternativeDate DateTime?
+  notes           String?       @db.Text
+  contactName     String
+  contactPhone    String
+  contactEmail    String
+  internalNotes   String?       @db.Text
+  jobId           String?       @unique
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  customer   Customer                   @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  location   Location                   @relation(fields: [locationId], references: [id], onDelete: Cascade)
+  job        ServiceJob?                @relation(fields: [jobId], references: [id], onDelete: SetNull)
+  traps      ServiceRequestGreaseTrap[]
+
+  @@index([customerId])
+  @@index([locationId])
+  @@index([status])
+  @@index([preferredDate])
+}
+
+model ServiceRequestGreaseTrap {
+  serviceRequestId String
+  greaseTrapId     String
+
+  serviceRequest ServiceRequest @relation(fields: [serviceRequestId], references: [id], onDelete: Cascade)
+  greaseTrap     GreaseTrap     @relation(fields: [greaseTrapId], references: [id], onDelete: Cascade)
+
+  @@id([serviceRequestId, greaseTrapId])
+}
+
+model ServiceJob {
+  id              String        @id @default(cuid())
+  customerId      String
+  locationId      String
+  technicianId    String?
+  serviceType     ServiceType
+  status          ServiceStatus @default(SCHEDULED)
+  scheduledAt     DateTime
+  startedAt       DateTime?
+  completedAt     DateTime?
+  customerNotes   String?       @db.Text
+  internalNotes   String?       @db.Text
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  customer      Customer              @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  location      Location              @relation(fields: [locationId], references: [id], onDelete: Cascade)
+  technician    Technician?           @relation(fields: [technicianId], references: [id], onDelete: SetNull)
+  traps         ServiceJobGreaseTrap[]
+  request       ServiceRequest?
+  serviceRecord ServiceRecord?
+  documents     Document[]
+
+  @@index([customerId])
+  @@index([locationId])
+  @@index([technicianId])
+  @@index([status])
+  @@index([scheduledAt])
+}
+
+model ServiceJobGreaseTrap {
+  serviceJobId String
+  greaseTrapId String
+
+  serviceJob ServiceJob @relation(fields: [serviceJobId], references: [id], onDelete: Cascade)
+  greaseTrap GreaseTrap @relation(fields: [greaseTrapId], references: [id], onDelete: Cascade)
+
+  @@id([serviceJobId, greaseTrapId])
+}
+
+model ServiceRecord {
+  id                    String   @id @default(cuid())
+  jobId                 String   @unique
+  completedByUserId     String?
+  completedAt           DateTime
+  gallonsRemoved        Int?
+  wasteHauler           String?
+  wasteDestination      String?
+  discrepancies         String?  @db.Text
+  technicianNotes       String?  @db.Text
+  customerSignatureName String?
+  customerSignedAt      DateTime?
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+
+  job               ServiceJob           @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  completedBy       User?                @relation("CompletedByUser", fields: [completedByUserId], references: [id], onDelete: SetNull)
+  documents         Document[]
+  cleaningReport    CleaningReport?
+  complianceManifest ComplianceManifest?
+
+  @@index([completedAt])
+}
+
+// ---------------------------------------------------------------------------
+// Documents, compliance placeholders, notifications, audit
+// ---------------------------------------------------------------------------
+
+enum DocumentType {
+  COMPLIANCE_MANIFEST
+  CLEANING_REPORT
+  PREVIOUS_SERVICE_REPORT
+  PHOTO
+  OTHER
+}
+
+enum DocumentVisibility {
+  CUSTOMER_VISIBLE
+  INTERNAL_ONLY
+}
+
+model Document {
+  id            String             @id @default(cuid())
+  customerId    String?
+  locationId    String?
+  greaseTrapId  String?
+  serviceJobId  String?
+  serviceRecordId String?
+  uploadedById  String?
+  type          DocumentType
+  visibility    DocumentVisibility @default(CUSTOMER_VISIBLE)
+  title         String
+  fileName      String
+  mimeType      String
+  sizeBytes     Int
+  storageKey    String
+  notes         String?            @db.Text
+  createdAt     DateTime           @default(now())
+  updatedAt     DateTime           @updatedAt
+
+  customer      Customer?      @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  location      Location?      @relation(fields: [locationId], references: [id], onDelete: SetNull)
+  greaseTrap    GreaseTrap?    @relation(fields: [greaseTrapId], references: [id], onDelete: SetNull)
+  serviceJob    ServiceJob?    @relation(fields: [serviceJobId], references: [id], onDelete: SetNull)
+  serviceRecord ServiceRecord? @relation(fields: [serviceRecordId], references: [id], onDelete: SetNull)
+
+  @@index([customerId])
+  @@index([locationId])
+  @@index([type])
+  @@index([createdAt])
+}
+
+enum ReportStatus {
+  DRAFT
+  READY
+  ISSUED
+}
+
+enum ManifestStatus {
+  DRAFT
+  READY_FOR_GENERATION
+  ISSUED
+  SIGNED
+}
+
+/// Placeholder for generated cleaning reports. Official PDF mapping comes later.
+model CleaningReport {
+  id              String       @id @default(cuid())
+  serviceRecordId String       @unique
+  status          ReportStatus @default(DRAFT)
+  generatedAt     DateTime?
+  documentId      String?
+  notes           String?      @db.Text
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+
+  serviceRecord ServiceRecord @relation(fields: [serviceRecordId], references: [id], onDelete: Cascade)
+}
+
+/// Placeholder for jurisdiction-specific compliance manifests.
+/// Do not treat this as a legal form. Field mapping happens after the official template is provided.
+model ComplianceManifest {
+  id              String         @id @default(cuid())
+  serviceRecordId String         @unique
+  status          ManifestStatus @default(DRAFT)
+  jurisdiction    String?
+  generatedAt     DateTime?
+  signedAt        DateTime?
+  signedByName    String?
+  documentId      String?
+  fieldSnapshot   Json?
+  notes           String?        @db.Text
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  serviceRecord ServiceRecord @relation(fields: [serviceRecordId], references: [id], onDelete: Cascade)
+}
+
+enum NotificationType {
+  UPCOMING_SERVICE
+  OVERDUE_SERVICE
+  SCHEDULED_SERVICE
+  SERVICE_COMPLETED
+  DOCUMENT_AVAILABLE
+  GENERAL
+}
+
+enum NotificationChannel {
+  EMAIL
+  SMS
+  IN_APP
+}
+
+enum NotificationStatus {
+  PENDING
+  SENT
+  FAILED
+  CANCELLED
+}
+
+model Notification {
+  id               String              @id @default(cuid())
+  userId           String?
+  customerId       String?
+  type             NotificationType
+  channel          NotificationChannel @default(IN_APP)
+  status           NotificationStatus  @default(PENDING)
+  title            String
+  body             String
+  scheduledFor     DateTime?
+  sentAt           DateTime?
+  readAt           DateTime?
+  relatedEntityType String?
+  relatedEntityId  String?
+  createdAt        DateTime            @default(now())
+  updatedAt        DateTime            @updatedAt
+
+  user     User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  customer Customer? @relation(fields: [customerId], references: [id], onDelete: Cascade)
+
+  @@index([userId, readAt])
+  @@index([customerId])
+  @@index([status, scheduledFor])
+  @@index([type])
+}
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  actorId    String?
+  action     String
+  entityType String
+  entityId   String?
+  metadata   Json?
+  ipAddress  String?
+  createdAt  DateTime @default(now())
+
+  actor User? @relation("AuditActor", fields: [actorId], references: [id], onDelete: SetNull)
+
+  @@index([entityType, entityId])
+  @@index([actorId])
+  @@index([createdAt])
+}
+
+model ContactInquiry {
+  id          String    @id @default(cuid())
+  customerId  String?
+  name        String
+  companyName String?
+  email       String
+  phone       String?
+  city        String?
+  serviceNeed String?
+  message     String    @db.Text
+  createdAt   DateTime  @default(now())
+
+  customer Customer? @relation(fields: [customerId], references: [id], onDelete: SetNull)
+}
