@@ -1,4 +1,7 @@
+import type { Metadata } from "next";
 import { AppShell } from "@/components/layout/app-shell";
+
+export const metadata: Metadata = { robots: { index: false, follow: false } };
 import { technicianNav } from "@/config/navigation";
 import { requireTechnicianContext } from "@/lib/session";
 

@@ -1,14 +1,21 @@
 export const siteConfig = {
-  name: "KLS Environmental LLC",
+  /** Public brand. Change independently of legalName once the client confirms the DBA. */
+  displayName: "KLS Environmental",
   shortName: "KLS",
+  /** Legal entity currently used on the site. Not a decision about KLS Transports LLC. */
   legalName: "KLS Environmental LLC",
-  tagline: "Commercial grease trap cleaning and compliance records you can find when an inspector asks.",
+  name: "KLS Environmental",
+  tagline:
+    "Grease interceptor cleaning and non-hazardous waste hauling for commercial and institutional kitchen operations.",
   description:
-    "KLS Environmental services grease traps for restaurants, hotels, and other commercial kitchens — with scheduled cleaning, service history, and documentation in one place.",
-  phone: "(512) 555-0190",
-  email: "ivan.p@example.net",
-  hours: "Monday–Friday, 7:00 a.m.–5:00 p.m.",
-  serviceArea: "Commercial kitchens across the region",
+    "Grease interceptor cleaning and non-hazardous waste hauling for commercial and institutional kitchens in Houston and Greater Houston, Texas.",
+  phone: "(832) 539-1391",
+  email: "service@klsenviro.com",
+  emergencyAvailability: "Emergency response 24/7",
+  officeHours: "Monday–Friday, 7:00 a.m.–5:00 p.m.",
+  hours: "Emergency response 24/7. Office Monday–Friday, 7:00 a.m.–5:00 p.m.",
+  serviceArea: "Houston and Greater Houston, Texas",
+  heroImage: "/images/kls-vacuum-truck.jpg",
   address: {
     line1: "Update with operating address",
     city: "",
@@ -16,6 +23,11 @@ export const siteConfig = {
     zip: "",
   },
 };
+
+export function phoneHref(phone = siteConfig.phone) {
+  const digits = phone.replace(/[^\d+]/g, "");
+  return digits ? `tel:${digits}` : "/contact";
+}
 
 export const seedCredentials = {
   customer: { email: "oscar.d@example.net", password: "Password123!" },

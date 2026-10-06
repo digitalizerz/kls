@@ -18,8 +18,40 @@
   --color-ok: #1f5c40;
   --color-surface: #f7f5ef;
   --color-panel: #ffffff;
+  --color-brand: #123c31;
+  --color-brand-deep: #0d2e26;
+  --color-charcoal: #171a18;
+  --color-ivory: #f5f3ec;
+  --color-emergency: #d71920;
+  --color-emergency-hover: #b8141a;
+  --color-steel: #626862;
+  --color-rule: #e3e5e2;
   --font-sans: var(--font-source-sans);
   --font-serif: var(--font-source-serif);
+}
+
+.marketing-site :is(a, button, input, select, textarea):focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 2px;
+}
+
+.marketing-site :is(a, button).is-emergency:focus-visible {
+  outline-color: var(--color-charcoal);
+}
+
+@keyframes field-rise {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.field-rise {
+  animation: field-rise 180ms ease;
 }
 
 html {

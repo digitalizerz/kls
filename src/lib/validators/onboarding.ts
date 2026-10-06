@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { isStandardCapacity } from "@/lib/capacity";
 
 export const onboardingSchema = z.object({
   companyName: z.string().min(2),
@@ -21,7 +22,12 @@ export const onboardingSchema = z.object({
   locationContactEmail: z.string().email(),
   waterPurveyor: z.string().min(2),
   trapName: z.string().min(2),
-  capacityGallons: z.coerce.number().int().positive().optional(),
+  capacityGallons: z.coerce
+    .number()
+    .int()
+    .refine(isStandardCapacity, {
+      message: "Select a capacity from 100 to 5,000 gallons, in 50-gallon steps.",
+    }),
   onsiteLocationDescription: z.string().min(2),
   cleaningFrequency: z.enum(["MONTHLY", "QUARTERLY", "YEARLY", "CUSTOM"]),
   lastCleanedAt: z.string().optional(),

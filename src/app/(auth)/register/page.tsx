@@ -6,9 +6,9 @@ export const metadata: Metadata = { title: "Register" };
 export default function RegisterPage() {
   return (
     <>
-      <h1 className="font-serif text-2xl">Create a customer account</h1>
+      <h1 className="text-2xl font-bold tracking-[-0.03em]">Create a customer account</h1>
       <p className="mt-1 mb-6 text-sm text-muted">
-        For restaurant groups, hotels, and other commercial kitchens. KLS staff accounts are issued separately.
+        For commercial and institutional facilities with kitchen operations. KLS staff accounts are issued separately.
       </p>
       <RegisterForm />
     </>

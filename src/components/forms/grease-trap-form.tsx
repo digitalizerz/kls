@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { ButtonLink } from "@/components/ui/button-link";
 import { Field } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import { CapacitySelect } from "@/components/forms/capacity-select";
 import { Select } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { toDateInput } from "@/lib/format";
@@ -42,18 +43,12 @@ export function GreaseTrapForm({
             id="nameOrIdentifier"
             name="nameOrIdentifier"
             defaultValue={trap?.nameOrIdentifier ?? ""}
-            placeholder="Kitchen interceptor — 1000 gal"
+            placeholder="Main interceptor — 1,000 gal"
             required
           />
         </Field>
-        <Field label="Capacity (gallons)" htmlFor="capacityGallons">
-          <Input
-            id="capacityGallons"
-            name="capacityGallons"
-            type="number"
-            min={1}
-            defaultValue={trap?.capacityGallons ?? ""}
-          />
+        <Field label="Capacity (gallons)" htmlFor="capacityGallons" hint="100 to 5,000 gallons, in steps of 50.">
+          <CapacitySelect id="capacityGallons" name="capacityGallons" defaultValue={trap?.capacityGallons} />
         </Field>
         <Field label="Cleaning frequency" htmlFor="cleaningFrequency">
           <Select id="cleaningFrequency" name="cleaningFrequency" defaultValue={trap?.cleaningFrequency ?? "MONTHLY"}>

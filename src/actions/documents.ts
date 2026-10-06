@@ -28,6 +28,9 @@ async function storeUpload(formData: FormData, options: {
   if (!(file instanceof File) || file.size === 0) {
     return { error: "Choose a file to upload." };
   }
+  if (file.size > 50 * 1024 * 1024) {
+    return { error: "That file is over the 50 MB limit." };
+  }
 
   const locationId = parsed.data.locationId ?? null;
   if (locationId) {

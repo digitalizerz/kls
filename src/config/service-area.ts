@@ -1,0 +1,28 @@
+/** Greater Houston communities KLS is set up to talk about publicly. Not a statewide coverage claim. */
+export const serviceArea = {
+  primaryCity: "Houston",
+  region: "Greater Houston",
+  state: "Texas",
+  counties: ["Harris", "Fort Bend", "Montgomery", "Galveston", "Brazoria"],
+  cities: [
+    "Houston",
+    "Katy",
+    "Sugar Land",
+    "The Woodlands",
+    "Pearland",
+    "Cypress",
+    "Pasadena",
+    "Baytown",
+    "Spring",
+    "Humble",
+    "Conroe",
+    "Missouri City",
+    "League City",
+    "Galveston",
+    "Richmond",
+    "Tomball",
+    "Friendswood",
+    "Stafford",
+    "Bellaire",
+  ],
+};

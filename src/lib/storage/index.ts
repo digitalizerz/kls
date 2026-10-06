@@ -8,7 +8,8 @@ export function getFileStorage(): FileStorage {
     case "local":
       return localFileStorage;
     default:
-      // Cloud drivers (S3, etc.) plug in here without changing document metadata.
+      // Production facility documents should use an S3-compatible driver here.
+      // The local driver writes files under ./uploads and is not served publicly.
       return localFileStorage;
   }
 }

@@ -6,6 +6,8 @@ import { requirePortalContext } from "@/lib/session";
 import { onboardingSchema } from "@/lib/validators/onboarding";
 import { nextServiceFromFrequency } from "@/lib/format";
 import { buildStorageKey, getFileStorage } from "@/lib/storage";
+import { facilityFileError } from "@/lib/facility-files";
+import type { DocumentType } from "@prisma/client";
 
 export type OnboardingState = {
   error?: string;
@@ -46,6 +48,22 @@ export async function completeOnboarding(
 
   if (!parsed.success) {
     return { error: parsed.error.issues[0]?.message ?? "Please complete the required fields." };
+  }
+
+  const uploadFields = [
+    "wasteManifests",
+    "sizingDocuments",
+    "buildingPlans",
+    "plumbingPlans",
+    "serviceRecords",
+    "otherDocuments",
+  ];
+  for (const field of uploadFields) {
+    for (const value of formData.getAll(field)) {
+      if (!(value instanceof File) || value.size === 0) continue;
+      const problem = facilityFileError(value);
+      if (problem) return { error: problem };
+    }
   }
 
   const lastCleanedAt = parsed.data.lastCleanedAt
@@ -112,10 +130,20 @@ export async function completeOnboarding(
     return createdLocation;
   });
 
-  const files = formData.getAll("documents").filter((value): value is File => value instanceof File && value.size > 0);
+  const uploads: { field: string; label: string; type: DocumentType }[] = [
+    { field: "wasteManifests", label: "Pick-up manifest", type: "PREVIOUS_SERVICE_REPORT" },
+    { field: "sizingDocuments", label: "Interceptor sizing document", type: "OTHER" },
+    { field: "buildingPlans", label: "Building plans", type: "OTHER" },
+    { field: "plumbingPlans", label: "Plumbing plans", type: "OTHER" },
+    { field: "serviceRecords", label: "Previous service record", type: "PREVIOUS_SERVICE_REPORT" },
+    { field: "otherDocuments", label: "Facility document", type: "OTHER" },
+  ];
 
-  if (files.length > 0) {
-    const storage = getFileStorage();
+  const storage = getFileStorage();
+  for (const upload of uploads) {
+    const files = formData
+      .getAll(upload.field)
+      .filter((value): value is File => value instanceof File && value.size > 0);
     for (const file of files) {
       const bytes = Buffer.from(await file.arrayBuffer());
       const key = buildStorageKey(["customers", customer.id, "onboarding", file.name]);
@@ -125,8 +153,8 @@ export async function completeOnboarding(
           customerId: customer.id,
           locationId: location.id,
           uploadedById: user.id,
-          type: "OTHER",
-          title: file.name,
+          type: upload.type,
+          title: `${upload.label} — ${file.name}`,
           fileName: file.name,
           mimeType: file.type || "application/octet-stream",
           sizeBytes: file.size,

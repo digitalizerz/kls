@@ -1,4 +1,7 @@
+import type { Metadata } from "next";
 import { redirect } from "next/navigation";
+
+export const metadata: Metadata = { title: "Set up your facility", robots: { index: false, follow: false } };
 import { Logo } from "@/components/layout/logo";
 import { OnboardingWizard } from "@/components/portal/onboarding-wizard";
 import { requirePortalContext } from "@/lib/session";

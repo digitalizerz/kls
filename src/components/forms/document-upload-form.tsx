@@ -76,7 +76,7 @@ export function DocumentUploadForm({
             </Select>
           </Field>
         ) : null}
-        <Field label="File" htmlFor="file" className="sm:col-span-2">
+        <Field label="File" htmlFor="file" className="sm:col-span-2" hint="Up to 50 MB. Plans and multi-page PDFs are expected.">
           <Input id="file" name="file" type="file" required />
         </Field>
         <Field label="Notes" htmlFor="notes" className="sm:col-span-2">
@@ -86,6 +86,9 @@ export function DocumentUploadForm({
       <Button type="submit" variant="clay" disabled={pending}>
         {pending ? "Uploading…" : "Upload document"}
       </Button>
+      <p className="text-xs leading-5 text-muted">
+        All uploaded documentation is kept strictly confidential and is available only to your organization and KLS.
+      </p>
     </form>
   );
 }

@@ -5,6 +5,7 @@ import type { completeServiceJob } from "@/actions/jobs";
 import type { completeTechnicianJob } from "@/actions/technician";
 import type { RecordActionState } from "@/actions/locations";
 import { Alert } from "@/components/ui/alert";
+import { siteConfig } from "@/config/site";
 import { Button } from "@/components/ui/button";
 import { Field } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
@@ -34,7 +35,7 @@ export function CompleteJobForm({
           <Input id="gallonsRemoved" name="gallonsRemoved" type="number" min={0} />
         </Field>
         <Field label="Waste hauler" htmlFor="wasteHauler">
-          <Input id="wasteHauler" name="wasteHauler" defaultValue="KLS Environmental LLC" />
+          <Input id="wasteHauler" name="wasteHauler" defaultValue={siteConfig.legalName} />
         </Field>
         <Field label="Waste destination" htmlFor="wasteDestination" className="sm:col-span-2">
           <Input id="wasteDestination" name="wasteDestination" placeholder="Licensed FOG receiving facility" />

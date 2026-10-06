@@ -1,11 +1,11 @@
 import type { NavItem } from "@/types/navigation";
 
 export const publicNav = [
-  { href: "/#services", label: "Services" },
-  { href: "/#how-it-works", label: "How it works" },
-  { href: "/#why-kls", label: "Why KLS" },
-  { href: "/#service-options", label: "Service options" },
-  { href: "/#contact", label: "Contact" },
+  { href: "/services", label: "Services" },
+  { href: "/how-it-works", label: "How it works" },
+  { href: "/why-kls", label: "Why KLS" },
+  { href: "/service-options", label: "Service options" },
+  { href: "/contact", label: "Contact" },
 ] as const;
 
 export const portalNav: NavItem[] = [

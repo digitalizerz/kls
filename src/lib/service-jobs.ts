@@ -1,4 +1,5 @@
 import type { Prisma } from "@prisma/client";
+import { siteConfig } from "@/config/site";
 import { prisma } from "@/lib/db";
 import { nextServiceFromFrequency } from "@/lib/format";
 import { notifyJobCompleted } from "@/lib/reminders";
@@ -85,7 +86,7 @@ export async function writeJobCompletion(
         completedByUserId: actorId,
         completedAt,
         gallonsRemoved: data.gallonsRemoved,
-        wasteHauler: data.wasteHauler ?? "KLS Environmental LLC",
+        wasteHauler: data.wasteHauler ?? siteConfig.legalName,
         wasteDestination: data.wasteDestination,
         discrepancies: data.discrepancies,
         technicianNotes: data.technicianNotes,

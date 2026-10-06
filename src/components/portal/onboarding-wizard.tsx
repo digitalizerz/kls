@@ -5,6 +5,8 @@ import { completeOnboarding, type OnboardingState } from "@/actions/onboarding";
 import { Alert } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Field } from "@/components/ui/field";
+import { CapacitySelect } from "@/components/forms/capacity-select";
+import { FacilityDocuments } from "@/components/portal/facility-documents";
 import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
@@ -82,7 +84,7 @@ export function OnboardingWizard({
 
       <div className={cn(step === 1 ? "grid gap-4 sm:grid-cols-2" : "hidden")}>
         <Field label="Location name" htmlFor="locationName" className="sm:col-span-2">
-          <Input id="locationName" name="locationName" placeholder="Downtown kitchen" required />
+          <Input id="locationName" name="locationName" placeholder="Main facility" required />
         </Field>
         <Field label="Street address" htmlFor="addressLine1" className="sm:col-span-2">
           <Input id="addressLine1" name="addressLine1" required />
@@ -115,10 +117,10 @@ export function OnboardingWizard({
 
       <div className={cn(step === 2 ? "grid gap-4 sm:grid-cols-2" : "hidden")}>
         <Field label="Trap name / identifier" htmlFor="trapName" className="sm:col-span-2">
-          <Input id="trapName" name="trapName" placeholder="Kitchen interceptor — 1000 gal" required />
+          <Input id="trapName" name="trapName" placeholder="Main interceptor" required />
         </Field>
-        <Field label="Capacity (gallons)" htmlFor="capacityGallons">
-          <Input id="capacityGallons" name="capacityGallons" type="number" min={1} />
+        <Field label="Capacity (gallons)" htmlFor="capacityGallons" hint="100 to 5,000 gallons, in steps of 50.">
+          <CapacitySelect id="capacityGallons" name="capacityGallons" required />
         </Field>
         <Field label="Cleaning frequency" htmlFor="cleaningFrequency">
           <Select id="cleaningFrequency" name="cleaningFrequency" defaultValue="MONTHLY">
@@ -136,14 +138,8 @@ export function OnboardingWizard({
         </Field>
       </div>
 
-      <div className={cn(step === 3 ? "space-y-3" : "hidden")}>
-        <Field
-          label="Previous reports, manifests, or photos"
-          htmlFor="documents"
-          hint="Optional. Files are stored with this location and can be replaced by cloud storage later."
-        >
-          <Input id="documents" name="documents" type="file" multiple />
-        </Field>
+      <div className={cn(step === 3 ? "space-y-4" : "hidden")}>
+        <FacilityDocuments pending={pending} />
       </div>
 
       <div className={cn(step === 4 ? "space-y-3 text-sm" : "hidden")}>
