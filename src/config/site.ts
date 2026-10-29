@@ -8,13 +8,15 @@ export const siteConfig = {
   tagline:
     "Grease interceptor cleaning and non-hazardous waste hauling for commercial and institutional kitchen operations.",
   description:
-    "Grease interceptor cleaning and non-hazardous waste hauling for commercial and institutional kitchens in Houston and Greater Houston, Texas.",
+    "Grease interceptor cleaning and non-hazardous waste hauling for commercial and institutional facilities across Texas, based on the request.",
   phone: "(832) 539-1391",
   email: "service@klsenviro.com",
   emergencyAvailability: "Emergency response 24/7",
   officeHours: "Monday–Friday, 7:00 a.m.–5:00 p.m.",
-  hours: "Emergency response 24/7. Office Monday–Friday, 7:00 a.m.–5:00 p.m.",
-  serviceArea: "Houston and Greater Houston, Texas",
+  hours: "Emergency response 24/7",
+  serviceArea: "Texas, based on the request",
+  /** Public requests stay closed until regulatory approval. Login and registration remain available for testing. */
+  acceptingRequests: false,
   heroImage: "/images/kls-vacuum-truck.jpg",
   address: {
     line1: "Update with operating address",

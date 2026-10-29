@@ -1,4 +1,3 @@
-import { serviceArea } from "@/config/service-area";
 import { siteConfig } from "@/config/site";
 import { siteUrl } from "@/lib/site-url";
 
@@ -19,37 +18,17 @@ export function LocalBusinessJsonLd() {
         description: siteConfig.description,
         address: {
           "@type": "PostalAddress",
-          addressLocality: serviceArea.primaryCity,
           addressRegion: "TX",
           addressCountry: "US",
         },
-        areaServed: [
-          ...serviceArea.cities.map((name) => ({
-            "@type": "City",
-            name,
-            containedInPlace: { "@type": "State", name: "Texas" },
-          })),
-          ...serviceArea.counties.map((name) => ({
-            "@type": "AdministrativeArea",
-            name: `${name} County`,
-            containedInPlace: { "@type": "State", name: "Texas" },
-          })),
-        ],
-        openingHoursSpecification: [
-          {
-            "@type": "OpeningHoursSpecification",
-            dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-            opens: "07:00",
-            closes: "17:00",
-          },
-        ],
+        areaServed: { "@type": "State", name: "Texas" },
       },
       {
         "@type": "Service",
         name: "Grease interceptor cleaning",
         serviceType: "Grease interceptor cleaning and pumping",
         provider: { "@type": "LocalBusiness", name: siteConfig.legalName },
-        areaServed: { "@type": "City", name: "Houston" },
+        areaServed: { "@type": "State", name: "Texas" },
         url: `${url}/services`,
       },
       {
@@ -57,7 +36,7 @@ export function LocalBusinessJsonLd() {
         name: "Non-hazardous waste hauling",
         serviceType: "Non-hazardous waste hauling",
         provider: { "@type": "LocalBusiness", name: siteConfig.legalName },
-        areaServed: { "@type": "City", name: "Houston" },
+        areaServed: { "@type": "State", name: "Texas" },
         url: `${url}/services`,
       },
     ],

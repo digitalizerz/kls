@@ -10,9 +10,9 @@ import { industries } from "@/config/industries";
 import { phoneHref, siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
-  title: "Grease Interceptor Cleaning in Houston",
+  title: "Grease Interceptor Cleaning in Texas",
   description:
-    "Scheduled grease interceptor cleaning, pumping, and non-hazardous waste hauling for Houston restaurants, hospitals, schools, and food-service facilities.",
+    "Scheduled grease interceptor cleaning, pumping, and non-hazardous waste hauling for restaurants, hospitals, schools, and food-service facilities in Texas.",
   alternates: { canonical: "/services" },
 };
 
@@ -140,12 +140,18 @@ export default function ServicesPage() {
           <h2 className="mt-3 max-w-2xl text-4xl font-bold leading-[1.08] tracking-[-0.03em] text-charcoal sm:text-5xl">
             The service doesn&apos;t end when the truck leaves.
           </h2>
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-10 grid gap-4 md:grid-cols-2">
             {documents.map((item) => (
-              <article key={item.title} className="border border-rule p-5">
-                <item.icon className="h-6 w-6 text-brand" strokeWidth={1.75} aria-hidden="true" />
-                <h3 className="mt-4 text-lg font-bold text-charcoal">{item.title}</h3>
-                <p className="mt-2 text-sm leading-6 text-steel">{item.body}</p>
+              <article
+                key={item.title}
+                tabIndex={0}
+                className="group min-h-52 border border-rule bg-ivory p-8 outline-none transition-colors hover:bg-white focus-visible:bg-white"
+              >
+                <item.icon className="h-7 w-7 text-brand" strokeWidth={1.75} aria-hidden="true" />
+                <h3 className="mt-6 text-2xl font-bold tracking-[-0.02em] text-charcoal">{item.title}</h3>
+                <p className="mt-4 max-h-0 overflow-hidden text-base leading-7 text-steel opacity-0 transition-all duration-200 group-hover:max-h-32 group-hover:opacity-100 group-focus:max-h-32 group-focus:opacity-100">
+                  {item.body}
+                </p>
               </article>
             ))}
           </div>

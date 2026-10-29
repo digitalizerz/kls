@@ -39,12 +39,6 @@ export function Hero() {
               Request service
             </Link>
             <EmergencyLink className="w-full sm:w-auto" />
-            <Link
-              href="/register"
-              className="inline-flex h-11 w-full items-center justify-center border border-white/80 bg-white px-5 text-sm font-bold text-charcoal transition-colors hover:bg-ivory sm:w-auto"
-            >
-              Open an account
-            </Link>
           </div>
           <p className="mt-6 text-sm text-white/80">
             <a className="font-semibold text-white" href={phoneHref()}>
@@ -52,8 +46,6 @@ export function Hero() {
             </a>
             {" · "}
             {siteConfig.emergencyAvailability}
-            {" · "}
-            Office {siteConfig.officeHours}
           </p>
         </div>
       </div>

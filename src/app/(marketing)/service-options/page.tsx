@@ -6,7 +6,7 @@ import { phoneHref } from "@/config/site";
 
 export const metadata: Metadata = {
   title: "Recurring and Emergency Service",
-  description: "Recurring, on-demand, emergency, and multi-site grease interceptor service for facilities in Greater Houston, Texas.",
+  description: "Recurring, on-demand, emergency, and multi-site grease interceptor service for facilities in Texas.",
   alternates: { canonical: "/service-options" },
 };
 

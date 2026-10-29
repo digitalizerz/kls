@@ -7,7 +7,7 @@ import { phoneHref } from "@/config/site";
 export const metadata: Metadata = {
   title: "How Interceptor Service Works",
   description:
-    "How Houston facilities set up an account, schedule grease interceptor service, and keep manifests with each location.",
+    "How facilities in Texas set up an account, schedule grease interceptor service, and keep manifests with each location.",
   alternates: { canonical: "/how-it-works" },
 };
 

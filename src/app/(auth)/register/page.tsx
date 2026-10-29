@@ -8,7 +8,7 @@ export default function RegisterPage() {
     <>
       <h1 className="text-2xl font-bold tracking-[-0.03em]">Create a customer account</h1>
       <p className="mt-1 mb-6 text-sm text-muted">
-        For commercial and institutional facilities with kitchen operations. KLS staff accounts are issued separately.
+        For commercial and institutional facilities with kitchen operations. KLS staff accounts are issued separately. Public launch is waiting on regulatory approval. This form stays open so account notifications can be tested.
       </p>
       <RegisterForm />
     </>

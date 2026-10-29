@@ -6,10 +6,25 @@ import { PageHero } from "@/components/marketing/page-hero";
 import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
-  title: "Why Houston Facilities Choose KLS",
-  description: "How KLS connects grease interceptor service, non-hazardous hauling, and facility records for Greater Houston kitchens.",
-  alternates: { canonical: "/why-kls" },
+  title: "About KLS",
+  description: "KLS focus, standard, and commitment for grease interceptor service and non-hazardous waste hauling in Texas.",
+  alternates: { canonical: "/about" },
 };
+
+const principles = [
+  {
+    label: "Focus",
+    body: "Grease interceptor cleaning and non-hazardous waste hauling for commercial and institutional facilities, with the service record kept at the facility.",
+  },
+  {
+    label: "Standard",
+    body: "Each location keeps its own service history, manifests, and interceptor information so those records are easier to retrieve. Organized records support the facility's paperwork. They do not replace the facility's own obligations.",
+  },
+  {
+    label: "Commitment",
+    body: "Facilities have a direct 24/7 line when a spill, backup, or overflow cannot wait. Routine requests stay on a separate path from that emergency line.",
+  },
+];
 
 const differences = [
   {
@@ -39,11 +54,22 @@ export default function WhyKlsPage() {
   return (
     <>
       <PageHero
-        eyebrow="Why KLS"
+        eyebrow="About KLS"
         title="Built around the facility—not just the service call."
         body="KLS combines grease interceptor service, non-hazardous waste hauling, emergency response, and organized facility records in one straightforward service experience."
         imageAlt="KLS field technician working beside a vacuum truck."
       />
+
+      <section className="bg-ivory">
+        <div className="mx-auto grid max-w-7xl gap-4 px-4 py-16 md:grid-cols-3 lg:px-6 lg:py-20">
+          {principles.map((item) => (
+            <article key={item.label} className="border border-rule bg-white px-6 py-8">
+              <h2 className="text-sm font-bold uppercase tracking-[0.14em] text-brand">{item.label}</h2>
+              <p className="mt-4 text-base leading-7 text-steel">{item.body}</p>
+            </article>
+          ))}
+        </div>
+      </section>
 
       <section className="bg-white">
         <div className="mx-auto max-w-7xl px-4 py-16 lg:px-6 lg:py-24">

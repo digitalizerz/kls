@@ -1,5 +1,6 @@
 "use server";
 
+import { siteConfig } from "@/config/site";
 import { prisma } from "@/lib/db";
 import { contactSchema } from "@/lib/validators/contact";
 
@@ -12,6 +13,12 @@ export async function submitContactInquiry(
   _prev: ContactState,
   formData: FormData,
 ): Promise<ContactState> {
+  if (!siteConfig.acceptingRequests) {
+    return {
+      error: "KLS is not accepting service requests until regulatory approval is complete.",
+    };
+  }
+
   const parsed = contactSchema.safeParse({
     name: formData.get("name"),
     companyName: formData.get("companyName"),

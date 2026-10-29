@@ -19,7 +19,7 @@ const sourceSerif = Source_Serif_4({
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl()),
   title: {
-    default: "Grease Interceptor Cleaning in Houston",
+    default: "Grease Interceptor Cleaning in Texas",
     template: `%s | ${siteConfig.displayName}`,
   },
   description: siteConfig.description,
@@ -27,13 +27,13 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     siteName: siteConfig.displayName,
-    title: "Grease Interceptor Cleaning in Houston | KLS Environmental",
+    title: "Grease Interceptor Cleaning in Texas | KLS Environmental",
     description: siteConfig.description,
     images: [{ url: siteConfig.heroImage, alt: "KLS vacuum truck and technician at a commercial grease interceptor." }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Grease Interceptor Cleaning in Houston | KLS Environmental",
+    title: "Grease Interceptor Cleaning in Texas | KLS Environmental",
     description: siteConfig.description,
     images: [siteConfig.heroImage],
   },

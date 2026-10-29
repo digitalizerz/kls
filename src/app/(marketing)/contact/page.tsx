@@ -6,8 +6,8 @@ import { PageHero } from "@/components/marketing/page-hero";
 import { phoneHref, siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
-  title: "Request Service in Houston",
-  description: `Request grease interceptor service in Houston, or call ${siteConfig.phone} for a spill, backup, or overflow.`,
+  title: "Request Service in Texas",
+  description: `Request grease interceptor service in Texas, or call ${siteConfig.phone} for a spill, backup, or overflow.`,
   alternates: { canonical: "/contact" },
 };
 
@@ -78,10 +78,6 @@ export default async function ContactPage({
                 </dd>
               </div>
               <div>
-                <dt className="text-sm font-bold text-steel">Office hours</dt>
-                <dd className="font-semibold text-charcoal">{siteConfig.officeHours}</dd>
-              </div>
-              <div>
                 <dt className="text-sm font-bold text-steel">Emergency service</dt>
                 <dd className="font-semibold text-charcoal">{siteConfig.emergencyAvailability}</dd>
               </div>
@@ -94,7 +90,19 @@ export default async function ContactPage({
               </a>
             </div>
           </div>
-          <ContactForm defaultNeed={need} />
+          {siteConfig.acceptingRequests ? (
+            <ContactForm defaultNeed={need} />
+          ) : (
+            <div className="border border-rule bg-ivory px-6 py-10">
+              <h2 className="text-2xl font-bold tracking-[-0.03em] text-charcoal">Service requests are not open yet.</h2>
+              <p className="mt-4 max-w-xl text-base leading-7 text-steel">
+                KLS will accept online service requests after regulatory approval. For an active spill, backup, or overflow, call the 24/7 line.
+              </p>
+              <a href={phoneHref()} className="is-emergency mt-6 inline-flex h-11 items-center justify-center bg-emergency px-5 text-sm font-bold text-white hover:bg-emergency-hover">
+                Call 24/7
+              </a>
+            </div>
+          )}
         </div>
       </section>
     </>

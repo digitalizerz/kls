@@ -14,7 +14,6 @@ export function Logo({
   const mark =
     tone === "light" ? "bg-cream text-forest" : tone === "public" ? "bg-brand text-white" : "bg-forest text-cream";
   const name = tone === "light" ? "text-cream" : tone === "public" ? "text-charcoal" : "text-ink";
-  const sub = tone === "light" ? "text-cream/70" : tone === "public" ? "text-steel" : "text-muted";
 
   return (
     <Link href={href} className="flex items-center gap-2.5">
@@ -31,15 +30,6 @@ export function Logo({
         <span className="leading-tight">
           <span className={cn("block text-sm", tone === "public" ? "font-bold" : "font-semibold", name)}>
             {siteConfig.displayName}
-          </span>
-          <span
-            className={cn(
-              "block text-[11px] uppercase",
-              tone === "public" ? "font-bold tracking-[0.12em]" : "tracking-[0.16em]",
-              sub,
-            )}
-          >
-            LLC
           </span>
         </span>
       )}

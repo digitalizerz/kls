@@ -2,13 +2,11 @@ import Link from "next/link";
 import { Logo } from "@/components/layout/logo";
 import { phoneHref, siteConfig } from "@/config/site";
 
-const links = [
+const company = [
   { href: "/services", label: "Services" },
   { href: "/how-it-works", label: "How it works" },
-  { href: "/why-kls", label: "Why KLS" },
+  { href: "/about", label: "About KLS" },
   { href: "/service-options", label: "Service options" },
-  { href: "/register", label: "Open an account" },
-  { href: "/login", label: "Client portal" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -24,7 +22,7 @@ export function PublicFooter() {
         <div>
           <p className="text-[13px] font-bold uppercase tracking-[0.14em] text-white/50">Company</p>
           <ul className="mt-3 space-y-2 text-sm">
-            {links.map((link) => (
+            {company.map((link) => (
               <li key={link.href}>
                 <Link href={link.href} className="hover:text-white/80">
                   {link.label}
@@ -34,27 +32,35 @@ export function PublicFooter() {
           </ul>
         </div>
         <div>
-          <p className="text-[13px] font-bold uppercase tracking-[0.14em] text-white/50">Contact</p>
+          <p className="text-[13px] font-bold uppercase tracking-[0.14em] text-white/50">Support</p>
           <ul className="mt-3 space-y-2 text-sm text-white/80">
             <li>
-              <a href={phoneHref()} className="hover:text-white">
-                {siteConfig.phone}
+              <a href={phoneHref()} className="font-semibold text-white hover:text-white/80">
+                {siteConfig.emergencyAvailability}
               </a>
+              <span className="mt-1 block">
+                <a href={phoneHref()} className="hover:text-white">
+                  {siteConfig.phone}
+                </a>
+              </span>
+            </li>
+            <li>
+              <Link href="/login" className="hover:text-white">
+                Client portal
+              </Link>
             </li>
             <li>
               <a href={`mailto:${siteConfig.email}`} className="hover:text-white">
                 {siteConfig.email}
               </a>
             </li>
-            <li>{siteConfig.emergencyAvailability}</li>
-            <li>Office {siteConfig.officeHours}</li>
           </ul>
         </div>
       </div>
       <div className="border-t border-white/10">
         <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-4 text-xs text-white/50 sm:flex-row sm:justify-between lg:px-6">
           <p>
-            © {new Date().getFullYear()} {siteConfig.legalName}. All rights reserved.
+            © {new Date().getFullYear()} {siteConfig.displayName}. All rights reserved.
           </p>
           <p className="flex gap-4">
             <Link href="/privacy" className="hover:text-white">
