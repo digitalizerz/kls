@@ -7,7 +7,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: { absolute: "Grease Interceptor Cleaning in Texas | KLS Environmental" },
   description:
-    "Grease interceptor cleaning and non-hazardous waste hauling for commercial and institutional facilities across Texas, based on the request.",
+    "Grease interceptor cleaning and non-hazardous waste hauling for commercial and institutional facilities across Texas.",
   alternates: { canonical: "/" },
 };
 
@@ -21,8 +21,8 @@ export default function HomePage() {
         <div className="mx-auto max-w-3xl px-4 py-16 text-center lg:px-6 lg:py-24">
           <h2 className="text-4xl font-bold tracking-[-0.03em] text-charcoal sm:text-5xl">Ready to get started?</h2>
           <div className="mt-8 flex justify-center">
-            <Link href="/contact" className="inline-flex h-12 items-center justify-center bg-brand px-6 text-sm font-bold text-white hover:bg-brand-deep">
-              Request service
+            <Link href="/contact" className="inline-flex h-12 items-center justify-center bg-brand px-6 text-sm font-bold uppercase tracking-[0.04em] text-white hover:bg-brand-deep">
+              Contact us
             </Link>
           </div>
         </div>

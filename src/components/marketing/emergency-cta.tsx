@@ -16,7 +16,7 @@ export function EmergencyCta() {
             href={phoneHref()}
             className="is-emergency inline-flex h-14 items-center justify-center bg-emergency px-6 text-base font-bold text-white transition-colors hover:bg-emergency-hover"
           >
-            Call KLS now
+            CALL KLS NOW
           </a>
           <p className="mt-2 text-sm text-white/75">
             <a href={phoneHref()} className="font-semibold text-white">

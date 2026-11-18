@@ -60,6 +60,16 @@ export default async function ContactPage({
         </div>
       </section>
 
+      <section className="bg-charcoal text-white">
+        <div className="mx-auto max-w-3xl px-4 py-16 text-center lg:px-6 lg:py-20">
+          <h2 className="text-3xl font-bold tracking-[-0.03em] sm:text-5xl">Active spill, backup, or overflow?</h2>
+          <p className="mt-4 text-lg font-semibold text-white/80">Don&apos;t wait for an online response.</p>
+          <a href={phoneHref()} className="mt-8 inline-flex text-lg font-bold uppercase tracking-[0.06em] text-white">
+            Call KLS now →
+          </a>
+        </div>
+      </section>
+
       <section className="bg-white">
         <div className="mx-auto grid max-w-7xl gap-12 px-4 py-16 lg:grid-cols-[0.8fr_1.2fr] lg:px-6 lg:py-24">
           <div>
@@ -72,9 +82,15 @@ export default async function ContactPage({
                 </dd>
               </div>
               <div>
-                <dt className="text-sm font-bold text-steel">Email</dt>
+                <dt className="text-sm font-bold text-steel">General Inquiries</dt>
                 <dd className="font-semibold text-charcoal">
                   <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
+                </dd>
+              </div>
+              <div>
+                <dt className="text-sm font-bold text-steel">Billing &amp; Accounting</dt>
+                <dd className="font-semibold text-charcoal">
+                  <a href={`mailto:${siteConfig.accountingEmail}`}>{siteConfig.accountingEmail}</a>
                 </dd>
               </div>
               <div>
@@ -82,13 +98,6 @@ export default async function ContactPage({
                 <dd className="font-semibold text-charcoal">{siteConfig.emergencyAvailability}</dd>
               </div>
             </dl>
-            <div className="mt-8 bg-charcoal p-5 text-white">
-              <p className="text-sm font-bold text-emergency">Active spill, backup, or overflow?</p>
-              <p className="mt-2 text-sm leading-6 text-white/80">Don&apos;t wait for an online response.</p>
-              <a href={phoneHref()} className="mt-4 inline-flex text-sm font-bold text-white">
-                Call KLS now →
-              </a>
-            </div>
           </div>
           {siteConfig.acceptingRequests ? (
             <ContactForm defaultNeed={need} />

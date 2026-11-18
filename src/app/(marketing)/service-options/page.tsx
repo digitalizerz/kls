@@ -32,16 +32,35 @@ export default function ServiceOptionsPage() {
         title="Service that fits the way your facility operates."
         body="From recurring interceptor cleaning to urgent response and multi-location coordination, KLS offers flexible ways to keep service moving."
         actions={
-          <Link href="/contact" className="inline-flex h-11 items-center justify-center bg-charcoal px-5 text-sm font-bold text-white hover:bg-black">
+          <Link href="/contact" className="inline-flex h-11 items-center justify-center bg-charcoal px-5 text-sm font-bold uppercase tracking-[0.04em] text-white hover:bg-black">
             Request service
           </Link>
         }
       />
 
+      <section className="bg-ivory">
+        <div className="mx-auto max-w-7xl px-4 py-16 lg:px-6 lg:py-20">
+          <Eyebrow>How service works</Eyebrow>
+          <h2 className="mt-3 max-w-2xl text-4xl font-bold tracking-[-0.03em] text-charcoal">From the request to the record.</h2>
+          <ol className="mt-10 grid gap-6 md:grid-cols-4">
+            {[
+              ["Tell us about the facility", "Location, interceptor capacity, and the service you need."],
+              ["Share what you already have", "Manifests, sizing documents, and plans can come with the account."],
+              ["Schedule, or call", "Routine service is requested online. An active emergency is a phone call."],
+              ["Keep the record", "Service history stays with that facility."],
+            ].map(([title, body]) => (
+              <li key={title}>
+                <h3 className="text-lg font-bold text-charcoal">{title}</h3>
+                <p className="mt-2 text-sm leading-6 text-steel">{body}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
       <section className="bg-white">
         <div className="mx-auto grid max-w-7xl gap-10 border-b border-rule px-4 py-16 lg:grid-cols-[1fr_1fr] lg:px-6 lg:py-20">
           <div>
-            <p className="text-sm font-bold text-brand">01</p>
             <h2 className="mt-3 text-4xl font-bold tracking-[-0.03em] text-charcoal">Recurring service</h2>
             <p className="mt-4 text-base leading-7 text-steel">
               For facilities that need interceptor service on an ongoing schedule. Schedules can be coordinated around the facility&apos;s operational requirements. These are scheduling options, not a recommendation for every facility.
@@ -62,20 +81,18 @@ export default function ServiceOptionsPage() {
 
       <section className="bg-ivory">
         <div className="mx-auto max-w-7xl px-4 py-16 lg:px-6 lg:py-20">
-          <p className="text-sm font-bold text-brand">02</p>
           <h2 className="mt-3 text-4xl font-bold tracking-[-0.03em] text-charcoal">On-demand service</h2>
           <p className="mt-4 max-w-2xl text-base leading-7 text-steel">
             Need service without establishing a recurring schedule? Submit a request with your facility information and service need. KLS can coordinate the next available service opportunity.
           </p>
           <Link href="/contact?need=INTERCEPTOR" className="mt-6 inline-flex text-sm font-bold text-brand">
-            Request service →
+            REQUEST SERVICE →
           </Link>
         </div>
       </section>
 
       <section className="bg-charcoal text-white">
         <div className="mx-auto max-w-7xl px-4 py-16 lg:px-6 lg:py-20">
-          <p className="text-sm font-bold text-emergency">03</p>
           <h2 className="mt-3 text-4xl font-bold tracking-[-0.03em]">24/7 emergency service</h2>
           <p className="mt-4 max-w-2xl text-base leading-7 text-white/75">
             For spills, backups, overflows, and other urgent interceptor service needs.
@@ -85,14 +102,13 @@ export default function ServiceOptionsPage() {
             href={phoneHref()}
             className="is-emergency mt-8 inline-flex h-14 items-center justify-center bg-emergency px-6 text-sm font-bold uppercase tracking-[0.04em] text-white hover:bg-emergency-hover"
           >
-            Call KLS now
+            CALL KLS NOW
           </a>
         </div>
       </section>
 
       <section className="bg-white">
         <div className="mx-auto max-w-7xl px-4 py-16 lg:px-6 lg:py-20">
-          <p className="text-sm font-bold text-brand">04</p>
           <h2 className="mt-3 text-4xl font-bold tracking-[-0.03em] text-charcoal">Multi-site service</h2>
           <p className="mt-4 max-w-2xl text-base leading-7 text-steel">
             For organizations managing multiple kitchens or facilities. One business account can organize each location separately.

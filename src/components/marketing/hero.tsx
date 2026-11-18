@@ -34,9 +34,9 @@ export function Hero() {
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <Link
               href="/contact"
-              className="inline-flex h-11 w-full items-center justify-center bg-charcoal px-5 text-sm font-bold text-white transition-colors hover:bg-black sm:w-auto"
+              className="inline-flex h-11 w-full items-center justify-center bg-charcoal px-5 text-sm font-bold uppercase tracking-[0.04em] text-white transition-colors hover:bg-black sm:w-auto"
             >
-              Request service
+              Request Service
             </Link>
             <EmergencyLink className="w-full sm:w-auto" />
           </div>

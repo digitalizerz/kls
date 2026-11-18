@@ -23,7 +23,7 @@ export function PublicHeader() {
               key={item.href}
               href={item.href}
               className={cn(
-                "text-sm font-semibold hover:text-brand",
+                "text-sm font-semibold uppercase tracking-[0.04em] hover:text-brand",
                 pathname === item.href ? "text-brand" : "text-charcoal",
               )}
               aria-current={pathname === item.href ? "page" : undefined}
@@ -36,9 +36,11 @@ export function PublicHeader() {
           <EmergencyLink className="h-10 px-2.5 text-[11px] sm:px-3 sm:text-xs" />
           <Link
             href="/login"
-            className="hidden h-10 items-center border border-rule px-3 text-sm font-bold text-charcoal hover:border-charcoal md:inline-flex"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden h-10 items-center border border-rule px-3 text-sm font-bold uppercase tracking-[0.04em] text-charcoal hover:border-charcoal md:inline-flex"
           >
-            Client portal
+            Client Portal
           </Link>
         </div>
         <button
@@ -58,15 +60,15 @@ export function PublicHeader() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="text-sm font-semibold"
+                className="text-sm font-semibold uppercase tracking-[0.04em]"
                 aria-current={pathname === item.href ? "page" : undefined}
                 onClick={() => setOpen(false)}
               >
                 {item.label}
               </Link>
             ))}
-            <Link href="/login" className="text-sm font-semibold text-brand" onClick={() => setOpen(false)}>
-              Client portal
+            <Link href="/login" target="_blank" rel="noopener noreferrer" className="text-sm font-semibold uppercase tracking-[0.04em] text-brand" onClick={() => setOpen(false)}>
+              Client Portal
             </Link>
           </div>
         </div>

@@ -2,7 +2,10 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   async redirects() {
-    return [{ source: "/why-kls", destination: "/about", permanent: true }];
+    return [
+      { source: "/why-kls", destination: "/about", permanent: true },
+      { source: "/how-it-works", destination: "/service-options", permanent: true },
+    ];
   },
   experimental: {
     proxyClientMaxBodySize: "50mb",

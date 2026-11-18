@@ -41,7 +41,7 @@ export default function ServicesPage() {
         actions={
           <>
             <Link href="/contact?need=INTERCEPTOR" className="inline-flex h-11 items-center justify-center bg-charcoal px-5 text-sm font-bold text-white hover:bg-black">
-              Request service
+              REQUEST SERVICE
             </Link>
             <EmergencyLink />
           </>
@@ -61,7 +61,6 @@ export default function ServicesPage() {
           </div>
           <div className="flex items-center px-4 py-14 lg:px-14">
             <div className="max-w-lg">
-              <p className="text-sm font-bold text-brand">01</p>
               <h2 className="mt-3 text-4xl font-bold leading-[1.08] tracking-[-0.03em] text-charcoal">Grease interceptor cleaning</h2>
               <p className="mt-4 text-base leading-7 text-steel">
                 Keep grease interceptors serviced with scheduled cleaning for commercial and institutional kitchen operations.
@@ -87,7 +86,6 @@ export default function ServicesPage() {
         <div className="grid lg:grid-cols-2">
           <div className="flex items-center px-4 py-14 lg:px-14">
             <div className="max-w-lg">
-              <p className="text-sm font-bold text-brand">02</p>
               <h2 className="mt-3 text-4xl font-bold leading-[1.08] tracking-[-0.03em] text-charcoal">Non-hazardous waste hauling</h2>
               <p className="mt-4 text-base leading-7 text-steel">
                 KLS provides pickup and hauling of non-hazardous waste associated with commercial and institutional service operations.
@@ -117,7 +115,6 @@ export default function ServicesPage() {
 
       <section className="bg-charcoal text-white">
         <div className="mx-auto max-w-7xl px-4 py-16 lg:px-6 lg:py-20">
-          <p className="text-sm font-bold text-white/60">03</p>
           <h2 className="mt-3 max-w-xl text-4xl font-bold leading-[1.08] tracking-[-0.03em] sm:text-5xl">When it can&apos;t wait.</h2>
           <p className="mt-5 max-w-xl text-base leading-7 text-white/75">
             Spills, backups, overflows, and interceptor problems don&apos;t always happen during a scheduled service window. KLS provides a dedicated 24/7 emergency service line for urgent service needs.
@@ -145,11 +142,13 @@ export default function ServicesPage() {
               <article
                 key={item.title}
                 tabIndex={0}
-                className="group min-h-52 border border-rule bg-ivory p-8 outline-none transition-colors hover:bg-white focus-visible:bg-white"
+                className="group relative min-h-56 border border-rule bg-ivory p-8 outline-none"
               >
-                <item.icon className="h-7 w-7 text-brand" strokeWidth={1.75} aria-hidden="true" />
-                <h3 className="mt-6 text-2xl font-bold tracking-[-0.02em] text-charcoal">{item.title}</h3>
-                <p className="mt-4 max-h-0 overflow-hidden text-base leading-7 text-steel opacity-0 transition-all duration-200 group-hover:max-h-32 group-hover:opacity-100 group-focus:max-h-32 group-focus:opacity-100">
+                <div className="transition-opacity duration-200 group-hover:opacity-0 group-focus:opacity-0">
+                  <item.icon className="h-7 w-7 text-brand" strokeWidth={1.75} aria-hidden="true" />
+                  <h3 className="mt-6 text-2xl font-bold tracking-[-0.02em] text-charcoal">{item.title}</h3>
+                </div>
+                <p className="absolute inset-0 flex items-center p-8 text-base leading-7 text-steel opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus:opacity-100">
                   {item.body}
                 </p>
               </article>
@@ -192,7 +191,7 @@ export default function ServicesPage() {
           </div>
           <div className="flex flex-col gap-3 sm:flex-row">
             <Link href="/contact" className="inline-flex h-11 items-center justify-center bg-white px-5 text-sm font-bold text-charcoal hover:bg-ivory">
-              Request service
+              REQUEST SERVICE
             </Link>
             <a href={phoneHref()} className="inline-flex h-11 items-center justify-center border border-white/40 px-5 text-sm font-bold text-white hover:bg-white/10">
               Call KLS

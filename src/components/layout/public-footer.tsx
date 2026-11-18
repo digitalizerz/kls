@@ -4,7 +4,6 @@ import { phoneHref, siteConfig } from "@/config/site";
 
 const company = [
   { href: "/services", label: "Services" },
-  { href: "/how-it-works", label: "How it works" },
   { href: "/about", label: "About KLS" },
   { href: "/service-options", label: "Service options" },
   { href: "/contact", label: "Contact" },
@@ -16,8 +15,11 @@ export function PublicFooter() {
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-12 md:grid-cols-[1.4fr_1fr_1fr] lg:px-6">
         <div>
           <Logo tone="light" />
-          <p className="mt-4 max-w-sm text-sm leading-6 text-white/70">{siteConfig.description}</p>
-          <p className="mt-3 text-sm font-semibold text-white/80">{siteConfig.serviceArea}</p>
+          <p className="mt-4 text-sm font-semibold text-white">
+            <a href={phoneHref()} className="hover:text-white/80">
+              {siteConfig.phone}
+            </a>
+          </p>
         </div>
         <div>
           <p className="text-[13px] font-bold uppercase tracking-[0.14em] text-white/50">Company</p>
@@ -36,22 +38,24 @@ export function PublicFooter() {
           <ul className="mt-3 space-y-2 text-sm text-white/80">
             <li>
               <a href={phoneHref()} className="font-semibold text-white hover:text-white/80">
-                {siteConfig.emergencyAvailability}
+                Emergency Response
               </a>
-              <span className="mt-1 block">
-                <a href={phoneHref()} className="hover:text-white">
-                  {siteConfig.phone}
-                </a>
-              </span>
             </li>
             <li>
-              <Link href="/login" className="hover:text-white">
-                Client portal
+              <Link href="/login" target="_blank" rel="noopener noreferrer" className="hover:text-white">
+                Client Portal
               </Link>
             </li>
             <li>
+              <span className="block text-white/50">General Inquiries</span>
               <a href={`mailto:${siteConfig.email}`} className="hover:text-white">
                 {siteConfig.email}
+              </a>
+            </li>
+            <li>
+              <span className="block text-white/50">Billing &amp; Accounting</span>
+              <a href={`mailto:${siteConfig.accountingEmail}`} className="hover:text-white">
+                {siteConfig.accountingEmail}
               </a>
             </li>
           </ul>
@@ -59,9 +63,7 @@ export function PublicFooter() {
       </div>
       <div className="border-t border-white/10">
         <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-4 text-xs text-white/50 sm:flex-row sm:justify-between lg:px-6">
-          <p>
-            © {new Date().getFullYear()} {siteConfig.displayName}. All rights reserved.
-          </p>
+          <p>© {new Date().getFullYear()} {siteConfig.displayName}. All rights reserved.</p>
           <p className="flex gap-4">
             <Link href="/privacy" className="hover:text-white">
               Privacy Policy

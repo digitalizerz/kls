@@ -28,7 +28,7 @@ export function Logo({
       </span>
       {compact ? null : (
         <span className="leading-tight">
-          <span className={cn("block text-sm", tone === "public" ? "font-bold" : "font-semibold", name)}>
+          <span className={cn("block max-w-[11rem] text-[13px] leading-4 sm:max-w-[16rem]", tone === "public" ? "font-bold" : "font-semibold", name)}>
             {siteConfig.displayName}
           </span>
         </span>

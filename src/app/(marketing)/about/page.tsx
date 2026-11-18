@@ -13,16 +13,31 @@ export const metadata: Metadata = {
 
 const principles = [
   {
-    label: "Focus",
-    body: "Grease interceptor cleaning and non-hazardous waste hauling for commercial and institutional facilities, with the service record kept at the facility.",
+    label: "Our Focus",
+    body: "Dependable service and organized execution, built on reliability and precision.",
   },
   {
-    label: "Standard",
-    body: "Each location keeps its own service history, manifests, and interceptor information so those records are easier to retrieve. Organized records support the facility's paperwork. They do not replace the facility's own obligations.",
+    label: "Our Standard",
+    body: "KLS operates efficiently in the background as your dedicated compliance partner, highlighting your commitment to the environment. Our team ensures every facility maintains continuous, effective compliance under state and local agency guidelines.",
   },
   {
-    label: "Commitment",
-    body: "Facilities have a direct 24/7 line when a spill, backup, or overflow cannot wait. Routine requests stay on a separate path from that emergency line.",
+    label: "Our Commitment",
+    body: "To build structured environments for precise compliance auditing and seamless non-hazardous waste retrieval. Water preservation and community health require a collaborative effort.",
+  },
+];
+
+const supports = [
+  {
+    title: "Dependable and Secure Remediation Schedules",
+    body: "Reliable, highly organized stewardship tailored to your specific regulatory needs, with extraction and disposal services arranged for the facility.",
+  },
+  {
+    title: "Uncompromising Detail and Accountability",
+    body: "A thorough approach to ensure absolute compliance and system optimization.",
+  },
+  {
+    title: "Collaborative Success",
+    body: "Working alongside your team to support health and environmental goals.",
   },
 ];
 
@@ -68,6 +83,26 @@ export default function WhyKlsPage() {
               <p className="mt-4 text-base leading-7 text-steel">{item.body}</p>
             </article>
           ))}
+        </div>
+      </section>
+
+      <section className="bg-white">
+        <div className="mx-auto grid max-w-7xl gap-8 px-4 py-16 md:grid-cols-3 lg:px-6">
+          {supports.map((item) => (
+            <article key={item.title}>
+              <h2 className="text-xl font-bold tracking-[-0.02em] text-charcoal">{item.title}</h2>
+              <p className="mt-3 text-base leading-7 text-steel">{item.body}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="bg-brand text-white">
+        <div className="mx-auto max-w-3xl px-4 py-16 lg:px-6 lg:py-20">
+          <h2 className="text-3xl font-bold tracking-[-0.03em] sm:text-4xl">Your dedicated compliance partner.</h2>
+          <p className="mt-5 text-base leading-7 text-white/85">
+            Serving as your dedicated compliance partner and active regulatory liaison, KLS bridges the gap between daily facility operations and evolving state and local agency requirements. Whether managing non-hazardous industrial waste, municipal solid waste, or liquid waste disposal, our team ensures your operations protect local water resources and strictly adhere to runoff, containment, and state guidelines.
+          </p>
         </div>
       </section>
 
@@ -133,9 +168,8 @@ export default function WhyKlsPage() {
             Built for how organizations actually operate.
           </h2>
           <ol className="mt-10 grid gap-4 md:grid-cols-4">
-            {structure.map((item, index) => (
+            {structure.map((item) => (
               <li key={item} className="border border-rule bg-white px-5 py-5">
-                <p className="text-sm font-bold text-brand">0{index + 1}</p>
                 <p className="mt-3 text-lg font-bold text-charcoal">{item}</p>
               </li>
             ))}

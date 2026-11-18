@@ -2,7 +2,6 @@ import type { NavItem } from "@/types/navigation";
 
 export const publicNav = [
   { href: "/services", label: "Services" },
-  { href: "/how-it-works", label: "How it works" },
   { href: "/about", label: "About KLS" },
   { href: "/service-options", label: "Service options" },
   { href: "/contact", label: "Contact" },
