@@ -51,6 +51,12 @@ export async function requireAdmin() {
   return user;
 }
 
+export async function requireSuperAdmin() {
+  const user = await requireAdmin();
+  if (user.role !== "SUPER_ADMIN") redirect("/admin/admins");
+  return user;
+}
+
 export async function requireTechnician() {
   const user = await getCurrentUser();
   if (!user) redirect("/login");

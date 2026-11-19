@@ -79,7 +79,7 @@ export default async function LocationDetailPage({
 
       <Card>
         <CardTitle>Grease traps</CardTitle>
-        <Table className="mt-4 border-0">
+        <Table className="mt-4 rounded-none border-0 shadow-none">
           <thead>
             <tr>
               <Th>Identifier</Th>

@@ -16,7 +16,7 @@ const serviceNeeds = [
   { value: "OTHER", label: "Other" },
 ] as const;
 
-const fieldClass = "mt-1.5 h-11 w-full border border-rule px-3 text-sm font-medium";
+const fieldClass = "mt-1.5 h-11 w-full rounded-md border border-black/10 bg-sand px-3 text-sm font-medium";
 
 export function ContactForm({ defaultNeed = "INTERCEPTOR" }: { defaultNeed?: string }) {
   const [state, action, pending] = useActionState(submitContactInquiry, initial);
@@ -24,8 +24,8 @@ export function ContactForm({ defaultNeed = "INTERCEPTOR" }: { defaultNeed?: str
   const capacities = capacityGallonOptions();
 
   return (
-    <form action={action} className="border border-rule bg-white p-5 sm:p-6">
-      <h2 className="text-2xl font-bold tracking-[-0.03em] text-charcoal">Request service</h2>
+    <form action={action} className="rounded-[1.75rem] bg-white p-6 sm:p-8">
+      <h2 className="text-2xl font-extrabold tracking-[-0.04em] text-inkwell">Request service</h2>
       {state.error ? <div className="mt-4"><Alert>{state.error}</Alert></div> : null}
       {state.success ? <div className="mt-4"><Alert tone="success">{state.success}</Alert></div> : null}
       <div className="mt-5 grid gap-4 sm:grid-cols-2">
@@ -55,7 +55,7 @@ export function ContactForm({ defaultNeed = "INTERCEPTOR" }: { defaultNeed?: str
         </label>
         <label className="block text-sm font-semibold text-charcoal">
           Service needed *
-          <select name="serviceNeed" defaultValue={selected} required className={`${fieldClass} bg-white`}>
+          <select name="serviceNeed" defaultValue={selected} required className={`${fieldClass} select-caret bg-white`}>
             {serviceNeeds.map((item) => (
               <option key={item.value} value={item.value}>
                 {item.label}
@@ -65,7 +65,7 @@ export function ContactForm({ defaultNeed = "INTERCEPTOR" }: { defaultNeed?: str
         </label>
         <label className="block text-sm font-semibold text-charcoal sm:col-span-2">
           Interceptor capacity
-          <select name="capacityGallons" defaultValue="" className={`${fieldClass} bg-white`}>
+          <select name="capacityGallons" defaultValue="" className={`${fieldClass} select-caret bg-white`}>
             <option value="">Select capacity, if known</option>
             {capacities.map((gallons) => (
               <option key={gallons} value={gallons}>
@@ -90,12 +90,12 @@ export function ContactForm({ defaultNeed = "INTERCEPTOR" }: { defaultNeed?: str
       </div>
       <label className="mt-4 block text-sm font-semibold text-charcoal">
         Tell us about the service needed
-        <textarea name="message" required rows={4} className="mt-1.5 w-full border border-rule px-3 py-2 text-sm font-medium" />
+        <textarea name="message" required rows={4} className="mt-1.5 w-full rounded-md border border-black/10 bg-sand px-3 py-2 text-sm font-medium" />
       </label>
       <button
         type="submit"
         disabled={pending}
-        className="mt-5 inline-flex h-11 items-center bg-brand px-5 text-sm font-bold text-white transition-colors hover:bg-brand-deep disabled:opacity-60"
+        className="mt-5 inline-flex h-12 items-center rounded-md bg-lime px-6 text-sm font-bold uppercase tracking-[0.06em] text-inkwell transition-colors hover:bg-white disabled:opacity-60"
       >
         {pending ? "Sending…" : "Send request"}
       </button>

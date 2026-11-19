@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
@@ -11,28 +12,18 @@ export function Logo({
   tone?: "dark" | "light" | "public";
   compact?: boolean;
 }) {
-  const mark =
-    tone === "light" ? "bg-cream text-forest" : tone === "public" ? "bg-brand text-white" : "bg-forest text-cream";
-  const name = tone === "light" ? "text-cream" : tone === "public" ? "text-charcoal" : "text-ink";
+  const onDark = tone === "light";
 
   return (
-    <Link href={href} className="flex items-center gap-2.5">
-      <span
-        className={cn(
-          "flex h-9 w-9 items-center justify-center text-[11px] font-bold",
-          tone === "public" ? "tracking-[0.08em]" : "tracking-[0.14em]",
-          mark,
-        )}
-      >
-        KLS
-      </span>
-      {compact ? null : (
-        <span className="leading-tight">
-          <span className={cn("block max-w-[11rem] text-[13px] leading-4 sm:max-w-[16rem]", tone === "public" ? "font-bold" : "font-semibold", name)}>
-            {siteConfig.displayName}
-          </span>
-        </span>
-      )}
+    <Link href={href} className={cn("inline-flex shrink-0 items-center", onDark && "rounded-lg bg-white px-1.5 py-1")}>
+      <Image
+        src={compact ? "/images/kls-mark.png" : "/images/kls-logo.png"}
+        alt={siteConfig.displayName}
+        width={compact ? 261 : 863}
+        height={288}
+        priority
+        className={compact ? "h-8 w-8 object-contain" : "h-10 w-auto"}
+      />
     </Link>
   );
 }

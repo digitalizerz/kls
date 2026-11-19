@@ -1,44 +1,47 @@
 import Image from "next/image";
 import Link from "next/link";
 import { phoneHref, siteConfig } from "@/config/site";
-import { EmergencyLink } from "@/components/marketing/emergency-link";
-import { Eyebrow } from "@/components/marketing/eyebrow";
 
 export function Hero() {
   return (
-    <section className="relative isolate overflow-hidden bg-brand text-white lg:min-h-[700px]">
-      <div className="relative h-72 sm:h-96 lg:absolute lg:inset-0 lg:h-auto">
+    <section className="relative isolate overflow-hidden bg-pine text-white">
+      <div className="absolute inset-0">
         <Image
-          src={siteConfig.heroImage}
-          alt="KLS vacuum truck and technician pumping a grease interceptor at a commercial facility."
+          src="/images/home-hero.jpg"
+          alt="Technician pumping a grease interceptor beside a vacuum truck at a commercial facility."
           fill
           priority
           sizes="100vw"
-          className="object-cover object-[68%_center]"
+          className="object-cover object-[72%_center]"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-brand via-brand/15 to-transparent lg:bg-gradient-to-r lg:from-brand lg:from-10% lg:via-brand/82 lg:via-46% lg:to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-pine via-pine/80 to-pine/55 sm:bg-gradient-to-r sm:from-pine sm:from-[8%] sm:via-pine/88 sm:via-[42%] sm:to-pine/15" />
       </div>
-      <div className="relative mx-auto flex max-w-7xl items-center px-4 py-10 lg:min-h-[700px] lg:px-6 lg:py-20">
-        <div className="max-w-4xl">
-          <Eyebrow light>Grease interceptor & non-hazardous waste services</Eyebrow>
-          <h1 className="mt-4 text-[2.15rem] font-extrabold leading-[1.05] tracking-[-0.03em] sm:text-[2.75rem] lg:text-[3.15rem]">
-            Grease Interceptor Cleaning.
-            <br />
-            Non-Hazardous Waste Hauling.
-            <br />
-            Compliance Ready.
+      <div className="relative mx-auto flex min-h-[680px] max-w-[90rem] items-center px-4 pb-32 pt-16 sm:min-h-[700px] lg:min-h-[720px] lg:px-8 lg:pb-36 lg:pt-20">
+        <div className="max-w-[68rem]">
+          <p className="text-[12px] font-semibold uppercase tracking-[0.18em] text-lime">
+            Grease interceptor &amp; non-hazardous waste services
+          </p>
+          <h1 className="mt-5 text-[2.05rem] font-extrabold leading-[1.02] tracking-[-0.045em] text-lime sm:text-[2.7rem] lg:text-[3.15rem] xl:text-[3.65rem] xl:leading-[0.98]">
+            <span className="block lg:whitespace-nowrap">Grease Interceptor Cleaning.</span>
+            <span className="block lg:whitespace-nowrap">Non-Hazardous Waste Hauling.</span>
+            <span className="block lg:whitespace-nowrap">Compliance Ready.</span>
           </h1>
-          <p className="mt-6 max-w-xl text-base leading-7 text-white/85 sm:text-lg">
+          <p className="mt-6 max-w-xl text-base font-normal leading-7 text-white/85 sm:text-lg sm:leading-8">
             Professional grease interceptor cleaning and non-hazardous waste hauling for commercial and institutional facilities with high-volume kitchen operations.
           </p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Link
               href="/contact"
-              className="inline-flex h-11 w-full items-center justify-center bg-charcoal px-5 text-sm font-bold uppercase tracking-[0.04em] text-white transition-colors hover:bg-black sm:w-auto"
+              className="inline-flex h-12 items-center justify-center rounded-md bg-lime px-6 text-sm font-bold uppercase tracking-[0.06em] text-inkwell transition-colors hover:bg-white"
             >
               Request Service
             </Link>
-            <EmergencyLink className="w-full sm:w-auto" />
+            <a
+              href={phoneHref()}
+              className="is-emergency inline-flex h-12 items-center justify-center rounded-md border border-white/45 px-6 text-sm font-bold uppercase tracking-[0.06em] text-white transition-colors hover:bg-white/10"
+            >
+              24/7 Emergency Service
+            </a>
           </div>
           <p className="mt-6 text-sm text-white/80">
             <a className="font-semibold text-white" href={phoneHref()}>

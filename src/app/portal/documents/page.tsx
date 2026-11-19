@@ -43,7 +43,7 @@ export default async function DocumentsPage({
         defaultLocationId={location}
       />
       <form className="flex flex-col gap-3 sm:flex-row">
-        <select name="location" defaultValue={location ?? ""} className="h-11 border border-line bg-white px-3 text-sm">
+        <select name="location" defaultValue={location ?? ""} className="select-caret h-11 border border-line bg-white px-3 text-sm">
           <option value="">All locations</option>
           {locations.map((item) => (
             <option key={item.id} value={item.id}>
@@ -51,7 +51,7 @@ export default async function DocumentsPage({
             </option>
           ))}
         </select>
-        <select name="type" defaultValue={type ?? ""} className="h-11 border border-line bg-white px-3 text-sm">
+        <select name="type" defaultValue={type ?? ""} className="select-caret h-11 border border-line bg-white px-3 text-sm">
           <option value="">All types</option>
           <option value="COMPLIANCE_MANIFEST">Compliance manifest</option>
           <option value="CLEANING_REPORT">Cleaning report</option>

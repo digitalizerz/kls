@@ -7,8 +7,10 @@ const effectiveDate = "October 6, 2026";
 
 export default function PrivacyPage() {
   return (
-    <article className="mx-auto max-w-3xl px-4 py-16 lg:px-6">
-      <h1 className="text-4xl font-bold tracking-[-0.03em] text-charcoal">Privacy Policy</h1>
+    <article className="bg-sand px-4 py-16 lg:px-8 lg:py-24">
+      <div className="mx-auto max-w-3xl rounded-[1.75rem] bg-white px-6 py-10 shadow-[0_24px_60px_-36px_rgba(16,28,25,0.45)] sm:px-10 sm:py-14">
+      <p className="text-[12px] font-bold uppercase tracking-[0.18em] text-pine">KLS</p>
+      <h1 className="mt-4 text-4xl font-extrabold tracking-[-0.04em] text-inkwell">Privacy Policy</h1>
       <p className="mt-4 text-sm font-semibold text-steel">Effective date: {effectiveDate}</p>
       <p className="text-sm font-semibold text-steel">Last updated: {effectiveDate}</p>
 
@@ -180,7 +182,7 @@ export default function PrivacyPage() {
       </ul>
       <p className="mt-4 text-base leading-7 text-steel">
         These rights are subject to exceptions and limitations under applicable law. To submit a privacy request, contact us at{" "}
-        <a className="font-semibold text-brand" href={`mailto:${siteConfig.email}`}>
+        <a className="font-semibold text-pine" href={`mailto:${siteConfig.email}`}>
           {siteConfig.email}
         </a>
         . We may need to verify your identity before processing a request. Authorized agents may submit requests where permitted by applicable law, subject to appropriate verification.
@@ -253,15 +255,16 @@ export default function PrivacyPage() {
         Texas, United States
         <br />
         Email:{" "}
-        <a className="font-semibold text-brand" href={`mailto:${siteConfig.email}`}>
+        <a className="font-semibold text-pine" href={`mailto:${siteConfig.email}`}>
           {siteConfig.email}
         </a>
         <br />
         Phone:{" "}
-        <a className="font-semibold text-brand" href={phoneHref()}>
+        <a className="font-semibold text-pine" href={phoneHref()}>
           {siteConfig.phone}
         </a>
       </p>
+      </div>
     </article>
   );
 }

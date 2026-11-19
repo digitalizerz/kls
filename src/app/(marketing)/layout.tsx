@@ -15,7 +15,7 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
       <LocalBusinessJsonLd />
       <ComingSoonBanner />
       <PublicHeader />
-      <div className="flex-1">{children}</div>
+      <main className="flex-1">{children}</main>
       <PublicFooter />
     </div>
   );

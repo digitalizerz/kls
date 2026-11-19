@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { requireAdmin } from "@/lib/session";
 import { deactivateCustomer } from "@/actions/admin";
+import { deleteCustomer } from "@/actions/delete";
+import { DeleteButton } from "@/components/forms/delete-button";
 import { Button } from "@/components/ui/button";
 import { ButtonLink } from "@/components/ui/button-link";
 import { Card, CardTitle } from "@/components/ui/card";
@@ -42,6 +44,12 @@ export default async function AdminCustomerDetailPage({
             <ButtonLink href={`/admin/customers/${customer.id}/locations/new`} size="sm">
               Add location
             </ButtonLink>
+            <DeleteButton
+              action={deleteCustomer}
+              fields={{ id: customer.id, returnTo: "/admin/customers" }}
+              title="Delete this customer?"
+              confirm="Delete this customer? Locations, grease traps, requests, jobs, service records, documents, and portal logins for this account are removed."
+            />
             {customer.status !== "INACTIVE" ? (
               <form action={deactivateCustomer}>
                 <input type="hidden" name="customerId" value={customer.id} />

@@ -89,7 +89,7 @@ export function FacilityDocuments({ pending }: { pending: boolean }) {
           id="documentCategory"
           value={category}
           onChange={(event) => setCategory(event.target.value as FieldName)}
-          className="mt-1.5 h-11 w-full border border-line bg-white px-3 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest"
+          className="select-caret mt-1.5 h-11 w-full border border-line bg-white px-3 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-forest"
         >
           {categories.map((entry) => (
             <option key={entry.field} value={entry.field}>

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ContactForm } from "@/components/marketing/contact-form";
-import { Eyebrow } from "@/components/marketing/eyebrow";
 import { PageHero } from "@/components/marketing/page-hero";
 import { phoneHref, siteConfig } from "@/config/site";
 
@@ -26,7 +25,7 @@ export default async function ContactPage({
   const { need } = await searchParams;
 
   return (
-    <>
+    <div className="overflow-x-clip bg-white">
       <PageHero
         compact
         eyebrow="Contact KLS"
@@ -34,9 +33,9 @@ export default async function ContactPage({
         body="Request grease interceptor service, ask about non-hazardous waste hauling, set up a new facility, or get help with your KLS account."
       />
 
-      <section className="bg-ivory">
-        <div className="mx-auto max-w-7xl px-4 py-14 lg:px-6">
-          <h2 className="text-3xl font-bold tracking-[-0.03em] text-charcoal">What can we help with?</h2>
+      <section className="bg-white">
+        <div className="mx-auto max-w-[90rem] px-4 py-16 lg:px-8">
+          <h2 className="text-3xl font-extrabold tracking-[-0.04em] text-inkwell sm:text-4xl">What can we help with?</h2>
           <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {paths.map((item) => (
               <li key={item.title}>
@@ -44,15 +43,15 @@ export default async function ContactPage({
                   href={item.href}
                   className={
                     item.emergency
-                      ? "is-emergency flex h-full flex-col bg-emergency px-5 py-5 text-white hover:bg-emergency-hover"
-                      : "flex h-full flex-col border border-rule bg-white px-5 py-5 hover:border-charcoal"
+                      ? "is-emergency flex h-full min-h-44 flex-col rounded-[1.5rem] bg-emergency px-6 py-6 text-white transition-colors hover:bg-emergency-hover"
+                      : "flex h-full min-h-44 flex-col rounded-[1.5rem] border border-black/8 bg-sand px-6 py-6 transition-colors hover:border-pine"
                   }
                 >
-                  <span className="text-lg font-bold">{item.title}</span>
+                  <span className="text-lg font-bold tracking-[-0.02em]">{item.title}</span>
                   <span className={item.emergency ? "mt-2 text-sm leading-6 text-white/90" : "mt-2 text-sm leading-6 text-steel"}>
                     {item.body}
                   </span>
-                  {item.emergency ? <span className="mt-4 text-sm font-bold uppercase tracking-[0.04em]">Call 24/7 →</span> : null}
+                  {item.emergency ? <span className="mt-auto pt-6 text-sm font-bold uppercase tracking-[0.06em]">Call 24/7 →</span> : null}
                 </Link>
               </li>
             ))}
@@ -60,60 +59,72 @@ export default async function ContactPage({
         </div>
       </section>
 
-      <section className="bg-charcoal text-white">
-        <div className="mx-auto max-w-3xl px-4 py-16 text-center lg:px-6 lg:py-20">
-          <h2 className="text-3xl font-bold tracking-[-0.03em] sm:text-5xl">Active spill, backup, or overflow?</h2>
-          <p className="mt-4 text-lg font-semibold text-white/80">Don&apos;t wait for an online response.</p>
-          <a href={phoneHref()} className="mt-8 inline-flex text-lg font-bold uppercase tracking-[0.06em] text-white">
+      <section className="bg-pine text-white">
+        <div className="mx-auto max-w-3xl px-4 py-20 text-center lg:py-28">
+          <h2 className="text-4xl font-extrabold tracking-[-0.045em] sm:text-6xl">Active spill, backup, or overflow?</h2>
+          <p className="mt-5 text-lg font-medium text-white/75">Don&apos;t wait for an online response.</p>
+          <a
+            href={phoneHref()}
+            className="is-emergency mt-8 inline-flex h-14 items-center justify-center rounded-md bg-lime px-8 text-base font-bold uppercase tracking-[0.08em] text-inkwell transition-colors hover:bg-white"
+          >
             Call KLS now →
           </a>
         </div>
       </section>
 
-      <section className="bg-white">
-        <div className="mx-auto grid max-w-7xl gap-12 px-4 py-16 lg:grid-cols-[0.8fr_1.2fr] lg:px-6 lg:py-24">
-          <div>
-            <Eyebrow>Contact KLS</Eyebrow>
-            <dl className="mt-6 space-y-5 text-base">
+      <section className="bg-sand">
+        <div className="mx-auto grid max-w-[90rem] gap-8 px-4 py-16 lg:grid-cols-[0.8fr_1.2fr] lg:px-8 lg:py-24">
+          <div className="rounded-[1.75rem] bg-white p-7 lg:p-8">
+            <p className="text-[12px] font-bold uppercase tracking-[0.18em] text-pine">Contact KLS</p>
+            <dl className="mt-6 space-y-6 text-base">
               <div>
-                <dt className="text-sm font-bold text-steel">Phone</dt>
-                <dd className="font-semibold text-charcoal">
-                  <a href={phoneHref()}>{siteConfig.phone}</a>
+                <dt className="text-sm font-semibold text-steel">Phone</dt>
+                <dd className="mt-1 text-lg font-bold text-inkwell">
+                  <a href={phoneHref()} className="hover:text-pine">
+                    {siteConfig.phone}
+                  </a>
                 </dd>
               </div>
               <div>
-                <dt className="text-sm font-bold text-steel">General Inquiries</dt>
-                <dd className="font-semibold text-charcoal">
-                  <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
+                <dt className="text-sm font-semibold text-steel">General Inquiries</dt>
+                <dd className="mt-1 font-semibold text-inkwell">
+                  <a href={`mailto:${siteConfig.email}`} className="hover:text-pine">
+                    {siteConfig.email}
+                  </a>
                 </dd>
               </div>
               <div>
-                <dt className="text-sm font-bold text-steel">Billing &amp; Accounting</dt>
-                <dd className="font-semibold text-charcoal">
-                  <a href={`mailto:${siteConfig.accountingEmail}`}>{siteConfig.accountingEmail}</a>
+                <dt className="text-sm font-semibold text-steel">Billing &amp; Accounting</dt>
+                <dd className="mt-1 font-semibold text-inkwell">
+                  <a href={`mailto:${siteConfig.accountingEmail}`} className="hover:text-pine">
+                    {siteConfig.accountingEmail}
+                  </a>
                 </dd>
               </div>
               <div>
-                <dt className="text-sm font-bold text-steel">Emergency service</dt>
-                <dd className="font-semibold text-charcoal">{siteConfig.emergencyAvailability}</dd>
+                <dt className="text-sm font-semibold text-steel">Emergency service</dt>
+                <dd className="mt-1 font-semibold text-inkwell">{siteConfig.emergencyAvailability}</dd>
               </div>
             </dl>
           </div>
           {siteConfig.acceptingRequests ? (
             <ContactForm defaultNeed={need} />
           ) : (
-            <div className="border border-rule bg-ivory px-6 py-10">
-              <h2 className="text-2xl font-bold tracking-[-0.03em] text-charcoal">Service requests are not open yet.</h2>
+            <div className="flex flex-col justify-center rounded-[1.75rem] bg-white px-7 py-10 lg:px-10">
+              <h2 className="text-3xl font-extrabold tracking-[-0.04em] text-inkwell">Service requests are not open yet.</h2>
               <p className="mt-4 max-w-xl text-base leading-7 text-steel">
                 KLS will accept online service requests after regulatory approval. For an active spill, backup, or overflow, call the 24/7 line.
               </p>
-              <a href={phoneHref()} className="is-emergency mt-6 inline-flex h-11 items-center justify-center bg-emergency px-5 text-sm font-bold text-white hover:bg-emergency-hover">
+              <a
+                href={phoneHref()}
+                className="is-emergency mt-8 inline-flex h-12 w-fit items-center justify-center rounded-md bg-emergency px-6 text-sm font-bold uppercase tracking-[0.06em] text-white transition-colors hover:bg-emergency-hover"
+              >
                 Call 24/7
               </a>
             </div>
           )}
         </div>
       </section>
-    </>
+    </div>
   );
 }

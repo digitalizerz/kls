@@ -11,22 +11,22 @@ const company = [
 
 export function PublicFooter() {
   return (
-    <footer className="bg-charcoal text-white">
-      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-12 md:grid-cols-[1.4fr_1fr_1fr] lg:px-6">
+    <footer className="bg-inkwell text-white">
+      <div className="mx-auto grid max-w-[90rem] gap-12 px-4 py-16 md:grid-cols-[1.4fr_1fr_1.2fr] lg:px-8">
         <div>
           <Logo tone="light" />
-          <p className="mt-4 text-sm font-semibold text-white">
-            <a href={phoneHref()} className="hover:text-white/80">
+          <p className="mt-5 text-sm font-semibold text-white">
+            <a href={phoneHref()} className="hover:text-lime">
               {siteConfig.phone}
             </a>
           </p>
         </div>
         <div>
-          <p className="text-[13px] font-bold uppercase tracking-[0.14em] text-white/50">Company</p>
-          <ul className="mt-3 space-y-2 text-sm">
+          <p className="text-[12px] font-bold uppercase tracking-[0.16em] text-white/45">Company</p>
+          <ul className="mt-4 space-y-3 text-sm">
             {company.map((link) => (
               <li key={link.href}>
-                <Link href={link.href} className="hover:text-white/80">
+                <Link href={link.href} className="hover:text-lime">
                   {link.label}
                 </Link>
               </li>
@@ -34,27 +34,27 @@ export function PublicFooter() {
           </ul>
         </div>
         <div>
-          <p className="text-[13px] font-bold uppercase tracking-[0.14em] text-white/50">Support</p>
-          <ul className="mt-3 space-y-2 text-sm text-white/80">
+          <p className="text-[12px] font-bold uppercase tracking-[0.16em] text-white/45">Support</p>
+          <ul className="mt-4 space-y-3 text-sm text-white/80">
             <li>
-              <a href={phoneHref()} className="font-semibold text-white hover:text-white/80">
+              <a href={phoneHref()} className="font-semibold text-white hover:text-lime">
                 Emergency Response
               </a>
             </li>
             <li>
-              <Link href="/login" target="_blank" rel="noopener noreferrer" className="hover:text-white">
+              <Link href="/login" target="_blank" rel="noopener noreferrer" className="hover:text-lime">
                 Client Portal
               </Link>
             </li>
             <li>
-              <span className="block text-white/50">General Inquiries</span>
-              <a href={`mailto:${siteConfig.email}`} className="hover:text-white">
+              <span className="block text-white/45">General Inquiries</span>
+              <a href={`mailto:${siteConfig.email}`} className="hover:text-lime">
                 {siteConfig.email}
               </a>
             </li>
             <li>
-              <span className="block text-white/50">Billing &amp; Accounting</span>
-              <a href={`mailto:${siteConfig.accountingEmail}`} className="hover:text-white">
+              <span className="block text-white/45">Billing &amp; Accounting</span>
+              <a href={`mailto:${siteConfig.accountingEmail}`} className="hover:text-lime">
                 {siteConfig.accountingEmail}
               </a>
             </li>
@@ -62,9 +62,9 @@ export function PublicFooter() {
         </div>
       </div>
       <div className="border-t border-white/10">
-        <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-4 text-xs text-white/50 sm:flex-row sm:justify-between lg:px-6">
+        <div className="mx-auto flex max-w-[90rem] flex-col gap-3 px-4 py-5 text-xs text-white/45 sm:flex-row sm:items-center sm:justify-between lg:px-8">
           <p>© {new Date().getFullYear()} {siteConfig.displayName}. All rights reserved.</p>
-          <p className="flex gap-4">
+          <p className="flex gap-5">
             <Link href="/privacy" className="hover:text-white">
               Privacy Policy
             </Link>

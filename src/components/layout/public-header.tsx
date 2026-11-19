@@ -14,17 +14,17 @@ export function PublicHeader() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-40 border-b border-rule bg-white">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 lg:px-6">
+    <header className="sticky top-0 z-40 border-b border-black/5 bg-white">
+      <div className="mx-auto flex h-[4.5rem] max-w-[90rem] items-center justify-between gap-4 px-4 lg:px-8">
         <Logo tone="public" />
-        <nav className="hidden items-center gap-6 xl:flex">
+        <nav className="hidden items-center gap-8 xl:flex" aria-label="Primary">
           {publicNav.map((item) => (
             <Link
               key={item.href}
               href={item.href}
               className={cn(
-                "text-sm font-semibold uppercase tracking-[0.04em] hover:text-brand",
-                pathname === item.href ? "text-brand" : "text-charcoal",
+                "text-[15px] font-semibold tracking-[-0.01em] transition-colors hover:text-pine",
+                pathname === item.href ? "text-pine" : "text-inkwell",
               )}
               aria-current={pathname === item.href ? "page" : undefined}
             >
@@ -33,44 +33,51 @@ export function PublicHeader() {
           ))}
         </nav>
         <div className="flex items-center gap-2">
-          <EmergencyLink className="h-10 px-2.5 text-[11px] sm:px-3 sm:text-xs" />
+          <EmergencyLink className="h-11 rounded-md px-3 text-[11px] sm:px-4 sm:text-xs" />
           <Link
             href="/login"
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden h-10 items-center border border-rule px-3 text-sm font-bold uppercase tracking-[0.04em] text-charcoal hover:border-charcoal md:inline-flex"
+            className="hidden h-11 items-center rounded-md border border-inkwell/15 px-4 text-xs font-bold uppercase tracking-[0.08em] text-inkwell transition-colors hover:border-inkwell hover:bg-sand lg:inline-flex"
           >
             Client Portal
           </Link>
+          <button
+            type="button"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-md text-inkwell xl:hidden"
+            onClick={() => setOpen((value) => !value)}
+            aria-expanded={open}
+            aria-controls="mobile-navigation"
+            aria-label={open ? "Close menu" : "Open menu"}
+          >
+            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
         </div>
-        <button
-          type="button"
-          className="inline-flex h-10 w-10 items-center justify-center border border-rule xl:hidden"
-          onClick={() => setOpen((value) => !value)}
-          aria-expanded={open}
-          aria-label={open ? "Close menu" : "Open menu"}
-        >
-          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
       </div>
       {open ? (
-        <div className="border-t border-rule bg-white px-4 py-4 xl:hidden">
-          <div className="flex flex-col gap-3">
+        <div id="mobile-navigation" className="border-t border-black/5 bg-white px-4 py-4 xl:hidden">
+          <nav className="flex flex-col" aria-label="Mobile">
             {publicNav.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="text-sm font-semibold uppercase tracking-[0.04em]"
+                className="flex min-h-11 items-center text-base font-semibold text-inkwell"
                 aria-current={pathname === item.href ? "page" : undefined}
                 onClick={() => setOpen(false)}
               >
                 {item.label}
               </Link>
             ))}
-            <Link href="/login" target="_blank" rel="noopener noreferrer" className="text-sm font-semibold uppercase tracking-[0.04em] text-brand" onClick={() => setOpen(false)}>
+            <Link
+              href="/login"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex min-h-11 items-center text-base font-semibold text-pine"
+              onClick={() => setOpen(false)}
+            >
               Client Portal
             </Link>
-          </div>
+          </nav>
         </div>
       ) : null}
     </header>

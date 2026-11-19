@@ -1,4 +1,7 @@
 import { notFound } from "next/navigation";
+import { deleteGreaseTrap, deleteLocation } from "@/actions/delete";
+import { RowIcons, SelectAll, SelectRow, TableSelection } from "@/components/data-table/row-actions";
+import { DeleteButton } from "@/components/forms/delete-button";
 import { prisma } from "@/lib/db";
 import { requireAdmin } from "@/lib/session";
 import { ButtonLink } from "@/components/ui/button-link";
@@ -7,7 +10,6 @@ import { PageHeader } from "@/components/ui/page-header";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { Table, Td, Th } from "@/components/ui/table";
 import { formatAddress, formatDate, formatFrequency } from "@/lib/format";
-import Link from "next/link";
 
 export default async function AdminLocationDetailPage({
   params,
@@ -41,6 +43,12 @@ export default async function AdminLocationDetailPage({
             <ButtonLink href={`/admin/locations/${location.id}/traps/new`} size="sm">
               Add grease trap
             </ButtonLink>
+            <DeleteButton
+              action={deleteLocation}
+              fields={{ id: location.id, returnTo: "/admin/locations" }}
+              title="Delete this location?"
+              confirm="Delete this location? Its grease traps, service requests, and jobs are removed. Documents stay on the customer account."
+            />
           </>
         }
       />
@@ -63,9 +71,22 @@ export default async function AdminLocationDetailPage({
       </div>
       <Card>
         <CardTitle>Grease traps</CardTitle>
-        <Table className="mt-4 border-0">
+        <TableSelection
+          ids={location.greaseTraps.map((trap) => trap.id)}
+          action={deleteGreaseTrap}
+          returnTo={`/admin/locations/${location.id}`}
+          noun="grease trap"
+          nouns="grease traps"
+          confirm="The selected grease traps are removed from service requests and jobs. This cannot be undone."
+        >
+        <Table className="mt-4 rounded-none border-0 shadow-none">
           <thead>
             <tr>
+              {location.greaseTraps.length > 0 ? (
+                <Th className="w-12">
+                  <SelectAll />
+                </Th>
+              ) : null}
               <Th>Identifier</Th>
               <Th>Capacity</Th>
               <Th>Frequency</Th>
@@ -77,20 +98,26 @@ export default async function AdminLocationDetailPage({
           <tbody>
             {location.greaseTraps.map((trap) => (
               <tr key={trap.id}>
+                <Td>
+                  <SelectRow id={trap.id} label={trap.nameOrIdentifier} />
+                </Td>
                 <Td className="font-medium">{trap.nameOrIdentifier}</Td>
                 <Td>{trap.capacityGallons ? `${trap.capacityGallons} gal` : "—"}</Td>
                 <Td>{formatFrequency(trap.cleaningFrequency, trap.customFrequencyDays)}</Td>
                 <Td>{formatDate(trap.lastCleanedAt)}</Td>
                 <Td>{formatDate(trap.nextRecommendedServiceAt)}</Td>
                 <Td>
-                  <Link href={`/admin/locations/${location.id}/traps/${trap.id}/edit`} className="text-sm text-forest">
-                    Edit
-                  </Link>
+                  <RowIcons
+                    label={trap.nameOrIdentifier}
+                    editHref={`/admin/locations/${location.id}/traps/${trap.id}/edit`}
+                    deleteId={trap.id}
+                  />
                 </Td>
               </tr>
             ))}
           </tbody>
         </Table>
+        </TableSelection>
       </Card>
     </div>
   );

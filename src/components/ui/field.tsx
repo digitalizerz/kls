@@ -14,12 +14,12 @@ export function Field({
   className?: string;
 }) {
   return (
-    <div className={cn(className)}>
-      <label htmlFor={htmlFor} className="mb-1.5 block text-sm font-medium text-ink">
+    <div className={cn("field", className)}>
+      <label htmlFor={htmlFor} className="mb-1.5 block text-sm font-medium text-dash-ink">
         {label}
       </label>
       {children}
-      {hint ? <p className="mt-1 text-xs text-muted">{hint}</p> : null}
+      {hint ? <p className="mt-1 text-xs text-dash-muted">{hint}</p> : null}
     </div>
   );
 }

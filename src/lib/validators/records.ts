@@ -59,6 +59,36 @@ export const customerSchema = z.object({
   portalPassword: z.preprocess(emptyToUndefined, z.string().min(8).optional()),
 });
 
+const optionalPassword = z.preprocess(
+  emptyToUndefined,
+  z.string().min(8, "Password must be at least 8 characters.").optional(),
+);
+
+export const technicianAccountSchema = z.object({
+  name: z.string().min(2, "Enter a name."),
+  email: z.string().email("Enter a valid email."),
+  phone: z.preprocess(emptyToUndefined, z.string().optional()),
+  employeeId: z.preprocess(emptyToUndefined, z.string().optional()),
+  password: z.string().min(8, "Password must be at least 8 characters."),
+  status: z.enum(["ACTIVE", "INACTIVE"]).optional(),
+  notes: z.preprocess(emptyToUndefined, z.string().optional()),
+});
+
+export const technicianUpdateSchema = technicianAccountSchema.omit({ password: true }).extend({
+  password: optionalPassword,
+});
+
+export const adminAccountSchema = z.object({
+  name: z.string().min(2, "Enter a name."),
+  email: z.string().email("Enter a valid email."),
+  phone: z.preprocess(emptyToUndefined, z.string().optional()),
+  password: z.string().min(8, "Password must be at least 8 characters."),
+});
+
+export const adminUpdateSchema = adminAccountSchema.omit({ password: true }).extend({
+  password: optionalPassword,
+});
+
 export const documentUploadSchema = z.object({
   title: z.preprocess(emptyToUndefined, z.string().optional()),
   type: z.enum([

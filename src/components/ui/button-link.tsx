@@ -2,7 +2,7 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 type Props = React.ComponentProps<typeof Link> & {
-  variant?: "primary" | "secondary" | "clay" | "ghost";
+  variant?: "primary" | "secondary" | "clay" | "ghost" | "lime";
   size?: "sm" | "md" | "lg";
 };
 
@@ -11,6 +11,7 @@ const variants = {
   secondary: "bg-transparent text-forest border-forest/25 hover:border-forest hover:bg-forest/5",
   clay: "bg-clay text-white hover:bg-clay-hover border-transparent",
   ghost: "bg-transparent text-ink border-transparent hover:bg-black/5",
+  lime: "rounded-full border-transparent bg-dash-lime text-dash-green hover:bg-[#b6e24f]",
 };
 
 const sizes = {
@@ -28,7 +29,7 @@ export function ButtonLink({
   return (
     <Link
       className={cn(
-        "inline-flex items-center justify-center gap-2 border font-medium tracking-wide transition-colors",
+        "inline-flex items-center justify-center gap-2 rounded-full border font-medium tracking-wide transition-colors",
         variants[variant],
         sizes[size],
         className,

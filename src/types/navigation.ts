@@ -11,6 +11,7 @@ export type NavIcon =
   | "CalendarClock"
   | "FileCheck"
   | "HardHat"
+  | "ShieldCheck"
   | "Bell"
   | "Settings";
 

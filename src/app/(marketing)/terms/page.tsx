@@ -8,8 +8,10 @@ const effectiveDate = "October 6, 2026";
 
 export default function TermsPage() {
   return (
-    <article className="mx-auto max-w-3xl px-4 py-16 lg:px-6">
-      <h1 className="text-4xl font-bold tracking-[-0.03em] text-charcoal">Terms of Service</h1>
+    <article className="bg-sand px-4 py-16 lg:px-8 lg:py-24">
+      <div className="mx-auto max-w-3xl rounded-[1.75rem] bg-white px-6 py-10 shadow-[0_24px_60px_-36px_rgba(16,28,25,0.45)] sm:px-10 sm:py-14">
+      <p className="text-[12px] font-bold uppercase tracking-[0.18em] text-pine">KLS</p>
+      <h1 className="mt-4 text-4xl font-extrabold tracking-[-0.04em] text-inkwell">Terms of Service</h1>
       <p className="mt-4 text-sm font-semibold text-steel">Effective date: {effectiveDate}</p>
       <p className="text-sm font-semibold text-steel">Last updated: {effectiveDate}</p>
 
@@ -51,7 +53,7 @@ export default function TermsPage() {
       </p>
       <p className="mt-4 text-base leading-7 text-steel">
         If you are experiencing a spill, backup, overflow, or other condition requiring urgent KLS service, call{" "}
-        <a className="font-semibold text-brand" href={phoneHref()}>
+        <a className="font-semibold text-pine" href={phoneHref()}>
           {siteConfig.phone}
         </a>
         .
@@ -287,7 +289,7 @@ export default function TermsPage() {
       <h2 className="mt-12 text-2xl font-bold tracking-[-0.02em] text-charcoal">24. Privacy</h2>
       <p className="mt-4 text-base leading-7 text-steel">
         KLS&apos;s collection and handling of personal information is described in the{" "}
-        <Link href="/privacy" className="font-semibold text-brand">
+        <Link href="/privacy" className="font-semibold text-pine">
           Privacy Policy
         </Link>
         . The Privacy Policy should be read together with these Terms.
@@ -324,15 +326,16 @@ export default function TermsPage() {
         Texas, United States
         <br />
         Email:{" "}
-        <a className="font-semibold text-brand" href={`mailto:${siteConfig.email}`}>
+        <a className="font-semibold text-pine" href={`mailto:${siteConfig.email}`}>
           {siteConfig.email}
         </a>
         <br />
         Phone:{" "}
-        <a className="font-semibold text-brand" href={phoneHref()}>
+        <a className="font-semibold text-pine" href={phoneHref()}>
           {siteConfig.phone}
         </a>
       </p>
+      </div>
     </article>
   );
 }
